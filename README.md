@@ -1,75 +1,69 @@
-# neogrow/README.md
+# NeoGrow API
 
-# Neogrow
+**NeoGrow API** é um backend desenvolvido com **FastAPI**, projetado para auxiliar pais de bebês prematuros no acompanhamento detalhado do crescimento e desenvolvimento de seus filhos. A API fornece endpoints para gerenciar dados do bebê, gerar gráficos de crescimento, emitir alertas e mais.
 
-Neogrow is a full-stack application that consists of a backend built with TypeScript and a frontend built with React. This project aims to provide a robust platform for managing and growing your projects efficiently.
+## Funcionalidades
 
-## Project Structure
+- Cadastro de dados detalhados do bebê (peso, altura, temperatura, etc.).
+- Cálculo e comparação com curvas de crescimento específicas para prematuros.
+- Geração de alertas personalizados baseados em métricas de saúde.
+- Integração com frontend (Next.js) para exibição de gráficos e insights.
 
-```
-neogrow
-├── backend
-│   ├── src
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── README.md
-├── frontend
-│   ├── src
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── README.md
-├── docker-compose.yml
-└── README.md
-```
+---
 
-## Getting Started
+## Tecnologias Utilizadas
 
-To get started with the Neogrow project, follow the instructions below:
+- **FastAPI**: Framework web rápido e moderno.
+- **SQLAlchemy**: ORM para interações com o banco de dados.
+- **Pytest**: Framework para testes.
+- **Uvicorn**: Servidor ASGI de alta performance.
 
-### Prerequisites
+---
 
-- Node.js (version 14 or higher)
-- Docker and Docker Compose
+## Pré-requisitos
 
-### Installation
+Certifique-se de ter as seguintes ferramentas instaladas:
 
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   cd neogrow
-   ```
+- Python 3.9 ou superior
+- Gerenciador de pacotes `pip`
+- Docker (opcional, para execução com contêineres)
 
-2. Install backend dependencies:
-   ```
-   cd backend
-   npm install
-   ```
+---
 
-3. Install frontend dependencies:
-   ```
-   cd frontend
-   npm install
-   ```
+## Instalação
 
-### Running the Application
+### 1. Crie e ative um ambiente virtual
 
-You can run the application using Docker Compose:
-
-```
-docker-compose up
+```bash
+python -m venv venv
+source venv/bin/activate  # Para Linux/MacOS
+venv\Scripts\activate     # Para Windows
 ```
 
-This command will start both the backend and frontend services.
+### 2. Instale as dependências
 
-### Usage
+```bash
+pip install -r requirements.txt
+```
 
-- The backend service will be available at `http://localhost:8000`.
-- The frontend service will be available at `http://localhost:3000`.
+## Execução
 
-### Contributing
+### 1. Iniciar o servidor de desenvolvimento
 
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+```bash
+uvicorn main:app --reload
 
-### License
+```
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+### 2. Acessar a documentação da API
+
+- Documentação gerada automaticamente com Swagger: http://127.0.0.1:8000/docs
+- Alternativa com Redoc: http://127.0.0.1:8000/redoc
+
+## Testes
+
+### Para rodar os testes
+
+```bash
+pytest
+```
