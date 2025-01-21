@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import ConfigDict, BaseModel
 from datetime import date
 
 class BabyDataCreate(BaseModel):
@@ -9,6 +9,4 @@ class BabyDataCreate(BaseModel):
 
 class BabyDataResponse(BabyDataCreate):
     id: int
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
