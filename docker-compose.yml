@@ -1,14 +1,39 @@
-version: '3.8'
 services:
+  # FastAPI service (backend)
   backend:
-    build: ./backend
-    ports:
-      - "8000:8000"
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
     volumes:
-      - ./backend:/app
+      - ./backend:/app  # This mounts the backend code to the container
+      - ./.venv:/app/.venv  # This mounts the local virtual environment (if you want to use it)
+    ports:
+      - "8000:8000"  # Exposes the FastAPI app on port 8000
+    environment:
+      - PYTHONUNBUFFERED=1  # Ensure Python logs to stdout
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--reload"]
+    # depends_on:
+    #   - db  # if you have a database service in the future
+  
+  # Add the database service here if needed, for example, a Postgres container
+  # db:
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: neogrow
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+
+  # Next.js frontend service (not yet configured but will be added later)
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
+      - "3000:3000"  # Exposes Next.js app on port 3000
+    environment:
+      - NODE_ENV=development  # or 'production' for a production environment
+
+# Volumes can be defined for persistent data storage (e.g., for databases)
+# volumes:
+#   postgres_data:
