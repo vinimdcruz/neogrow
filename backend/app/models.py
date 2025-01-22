@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, Float, String, Date
-from app.database import Base
+from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
 
 class BabyData(Base):
     __tablename__ = "baby_data"
