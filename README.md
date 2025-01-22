@@ -4,7 +4,7 @@
 
 ## Funcionalidades
 
-- Cadastro de dados detalhados do bebê (peso, altura, temperatura, etc.).
+- Cadastro de dados detalhados do bebê (peso, altura e perímetro cefálico).
 - Cálculo e comparação com curvas de crescimento específicas para prematuros.
 - Geração de alertas personalizados baseados em métricas de saúde.
 - Integração com frontend (Next.js) para exibição de gráficos e insights.
@@ -48,14 +48,27 @@ pip install -r requirements.txt
 
 ## Execução
 
-### 1. Iniciar o servidor de desenvolvimento
+### 1. Criar as tabelas no banco de dados
+
+```bash
+alembic upgrade head
+```
+
+Caso precise criar novas migrações ao modificar os modelos, utilize:
+
+```bash
+alembic revision --autogenerate -m "descrição_da_mudança"
+alembic upgrade head
+```
+
+
+### 2. Iniciar o servidor de desenvolvimento
 
 ```bash
 uvicorn main:app --reload
-
 ```
 
-### 2. Acessar a documentação da API
+### 3. Acessar a documentação da API
 
 - Documentação gerada automaticamente com Swagger: http://127.0.0.1:8000/docs
 - Alternativa com Redoc: http://127.0.0.1:8000/redoc
