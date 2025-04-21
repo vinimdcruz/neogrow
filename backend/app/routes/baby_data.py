@@ -6,10 +6,10 @@ from app.database import get_db
 
 router = APIRouter()
 
-@router.post("/", response_model=BabyDataResponse)
+@router.post("", response_model=BabyDataResponse)
 def create_data(data: BabyDataCreate, db: Session = Depends(get_db)):
     return create_baby_data(db=db, data=data)
 
-@router.get("/", response_model=list[BabyDataResponse])
+@router.get("", response_model=list[BabyDataResponse])
 def read_data(db: Session = Depends(get_db)):
     return get_baby_data(db=db)

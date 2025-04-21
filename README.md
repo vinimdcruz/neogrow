@@ -15,8 +15,11 @@
 
 - **FastAPI**: Framework web rápido e moderno.
 - **SQLAlchemy**: ORM para interações com o banco de dados.
+- **PostgreSQL**: Banco de dados relacional.
+- **Docker**: Containerização da aplicação.
 - **Pytest**: Framework para testes.
 - **Uvicorn**: Servidor ASGI de alta performance.
+- **Alembic**: Ferramenta para migrações de banco de dados.
 
 ---
 
@@ -24,13 +27,66 @@
 
 Certifique-se de ter as seguintes ferramentas instaladas:
 
-- Python 3.9 ou superior
-- Gerenciador de pacotes `pip`
-- Docker (opcional, para execução com contêineres)
+- Docker e Docker Compose
+- Git
 
 ---
 
-## Instalação
+## Instalação e Execução com Docker
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/neogrow.git
+cd neogrow
+```
+
+### 2. Inicie os contêineres com Docker Compose
+
+```bash
+docker compose up -d
+```
+
+Este comando irá:
+- Criar e iniciar o banco de dados PostgreSQL
+- **Executar as migrações do banco de dados automaticamente**
+- Iniciar o backend FastAPI na porta 8000
+- Iniciar o frontend Next.js na porta 3000 (se disponível)
+
+### 3. Verificar os logs (opcional)
+
+```bash
+docker compose logs -f backend
+```
+
+### 4. Acessar a aplicação
+
+- API Backend: http://localhost:8000
+- Documentação da API: http://localhost:8000/docs
+- Frontend (se disponível): http://localhost:3000
+
+---
+
+## Endpoints da API
+
+### Dados do Bebê
+
+- `GET /api/baby`: Retorna todos os registros de dados do bebê
+- `POST /api/baby`: Adiciona um novo registro com os seguintes campos:
+  ```json
+  {
+    "weight": 2.5,
+    "height": 45.0,
+    "head_circumference": 32.0,
+    "date": "2024-04-21"
+  }
+  ```
+
+---
+
+## Desenvolvimento Local sem Docker
+
+Se preferir desenvolver sem Docker, siga estas etapas:
 
 ### 1. Crie e ative um ambiente virtual
 
@@ -43,40 +99,51 @@ venv\Scripts\activate     # Para Windows
 ### 2. Instale as dependências
 
 ```bash
+cd backend
 pip install -r requirements.txt
 ```
 
-## Execução
+### 3. Configure o banco de dados
 
-### 1. Criar as tabelas no banco de dados
+Crie um arquivo `.env` na pasta `backend` com:
+
+```
+DATABASE_URL=postgresql://usuario:senha@localhost:5432/neogrow
+```
+
+### 4. Execute as migrações
 
 ```bash
 alembic upgrade head
 ```
 
-Caso precise criar novas migrações ao modificar os modelos, utilize:
+### 5. Inicie o servidor de desenvolvimento
 
 ```bash
-alembic revision --autogenerate -m "descrição_da_mudança"
-alembic upgrade head
+uvicorn app.main:app --reload
 ```
-
-
-### 2. Iniciar o servidor de desenvolvimento
-
-```bash
-uvicorn main:app --reload
-```
-
-### 3. Acessar a documentação da API
-
-- Documentação gerada automaticamente com Swagger: http://127.0.0.1:8000/docs
-- Alternativa com Redoc: http://127.0.0.1:8000/redoc
 
 ## Testes
 
 ### Para rodar os testes
 
 ```bash
+cd backend
 pytest
+```
+
+---
+
+## Parando os Contêineres
+
+Para parar todos os contêineres:
+
+```bash
+docker compose down
+```
+
+Para parar e remover volumes (dados do banco):
+
+```bash
+docker compose down -v
 ```

@@ -1,39 +1,51 @@
+version: '3.8'
+
 services:
+  # PostgreSQL database
+  db:
+    container_name: neogrow_db
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: neogrow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"  # Changed to 5433 on host to avoid conflict
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   # FastAPI service (backend)
   backend:
+    container_name: neogrow_backend
     build:
       context: ./backend
       dockerfile: ./Dockerfile
     volumes:
       - ./backend:/app  # This mounts the backend code to the container
-      - ./.venv:/app/.venv  # This mounts the local virtual environment (if you want to use it)
     ports:
       - "8000:8000"  # Exposes the FastAPI app on port 8000
     environment:
       - PYTHONUNBUFFERED=1  # Ensure Python logs to stdout
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--reload"]
-    # depends_on:
-    #   - db  # if you have a database service in the future
-  
-  # Add the database service here if needed, for example, a Postgres container
-  # db:
-  #   image: postgres
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/neogrow
+    depends_on:
+      db:
+        condition: service_healthy
+    command: bash /app/entrypoint.sh
+
+  # Next.js frontend service (commented out for now)
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #   ports:
+  #     - "3000:3000"  # Exposes Next.js app on port 3000
   #   environment:
-  #     POSTGRES_USER: user
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_DB: neogrow
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
+  #     - NODE_ENV=development  # or 'production' for a production environment
 
-  # Next.js frontend service (not yet configured but will be added later)
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "3000:3000"  # Exposes Next.js app on port 3000
-    environment:
-      - NODE_ENV=development  # or 'production' for a production environment
-
-# Volumes can be defined for persistent data storage (e.g., for databases)
-# volumes:
-#   postgres_data:
+# Volumes for persistent data storage
+volumes:
+  postgres_data:
