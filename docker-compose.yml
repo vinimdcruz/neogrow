@@ -6,13 +6,13 @@ services:
     container_name: neogrow_db
     image: postgres:15
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: neogrow
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=neogrow
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5433:5432"  # Changed to 5433 on host to avoid conflict
+      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -20,22 +20,23 @@ services:
       retries: 5
 
   # FastAPI service (backend)
-  backend:
-    container_name: neogrow_backend
+  api:
     build:
       context: ./backend
-      dockerfile: ./Dockerfile
-    volumes:
-      - ./backend:/app  # This mounts the backend code to the container
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000"  # Exposes the FastAPI app on port 8000
+      - "8000:8000"
     environment:
-      - PYTHONUNBUFFERED=1  # Ensure Python logs to stdout
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/neogrow
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=neogrow
     depends_on:
       db:
         condition: service_healthy
-    command: bash /app/entrypoint.sh
+    volumes:
+      - ./backend:/app
+    command: ./entrypoint.sh
 
   # Next.js frontend service (commented out for now)
   # frontend:

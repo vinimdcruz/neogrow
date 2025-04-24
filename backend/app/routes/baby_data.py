@@ -1,15 +1,45 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from app.schemas import BabyDataCreate, BabyDataResponse
-from app.crud import create_baby_data, get_baby_data
-from app.database import get_db
+from typing import List
+from datetime import date
+from .. import crud, schemas, models
+from ..database import get_db
+from ..auth.oauth2 import get_current_user
 
 router = APIRouter()
 
-@router.post("", response_model=BabyDataResponse)
-def create_data(data: BabyDataCreate, db: Session = Depends(get_db)):
-    return create_baby_data(db=db, data=data)
+async def verify_baby_ownership(
+    baby_id: int,
+    current_user: models.User,
+    db: Session
+) -> models.Baby:
+    baby = crud.get_baby(db, baby_id=baby_id)
+    if baby is None:
+        raise HTTPException(status_code=404, detail="Baby not found")
+    if baby.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to access this baby's data")
+    return baby
 
-@router.get("", response_model=list[BabyDataResponse])
-def read_data(db: Session = Depends(get_db)):
-    return get_baby_data(db=db)
+@router.post("/babies/{baby_id}/data/", response_model=schemas.BabyData)
+async def create_baby_data(
+    baby_id: int,
+    baby_data: schemas.BabyDataCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    await verify_baby_ownership(baby_id, current_user, db)
+    return crud.create_baby_data(db=db, baby_data=baby_data, baby_id=baby_id)
+
+@router.get("/babies/{baby_id}/data/", response_model=List[schemas.BabyData])
+async def read_baby_data(
+    baby_id: int,
+    start_date: date = None,
+    end_date: date = None,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    await verify_baby_ownership(baby_id, current_user, db)
+    
+    if start_date and end_date:
+        return crud.get_baby_data_by_date_range(db, baby_id, start_date, end_date)
+    return crud.get_baby_data(db, baby_id)
