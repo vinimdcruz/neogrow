@@ -10,6 +10,9 @@ import { useForm } from "react-hook-form"
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { FiMail } from 'react-icons/fi';
+import { FaUser } from 'react-icons/fa';
+
 const schema = z.object({
   email: z.string().email("Insira um e-mail válido").nonempty("O campo e-mail é obrigatório"),
   password: z.string().nonempty("O campo senha é obrigatório.")
@@ -35,7 +38,7 @@ export default function Login() {
               <Image
                 src={minhaImagem}
                 alt="Logo do Site"
-                className="h-60 w-50 mb-3"
+                className="h-60 w-50"
               />
             </Link>
 
@@ -43,24 +46,33 @@ export default function Login() {
               className="bg-white max-w-xl w-full rounded-lg p-4"
               onSubmit={handleSubmit(onSubmit)}
               >
-                <div className="mb-3">
-                <Input 
-                  type="email"
-                  placeholder="Digite seu e-mail"
-                  name="email"
-                  error={errors.email?.message}
-                  register={register}
-                />
+                <div className="mb-1">
+                  <div className="pl-1 pb-1 text-[17px] flex justify-between items-center">
+                    Nome
+                    <FaUser size={18} color="gray" />
+                  </div>
+                    <Input 
+                      type="email"
+                      placeholder="Digite seu e-mail"
+                      name="email"
+                      error={errors.email?.message}
+                      register={register}
+                    />
                 </div>
+                
 
                 <div className="mb-3">
-                <Input
-                  type="password"
-                  placeholder="Digite sua senha"
-                  name="password"
-                  error={errors.password?.message}
-                  register={register}
-                />
+                  <div className="pl-1 pb-1 text-[17px] flex justify-between items-center">
+                    E-mail
+                    <FiMail size={18} color="gray" />
+                  </div>
+                    <Input
+                      type="password"
+                      placeholder="Digite sua senha"
+                      name="password"
+                      error={errors.password?.message}
+                      register={register}
+                    />
                 </div>
 
               <button type="submit" className="w-full h-10 bg-blue-600 rounded-md text-white hover:bg-blue-700 cursor-pointer">

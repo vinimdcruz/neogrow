@@ -4,8 +4,8 @@ interface InputProps{
   placeholder: string;
   name: string;
   register: UseFormRegister<any>
-  errors?: string;
-  rykes?: RegisterOptions;
+  error?: string;
+  rules?: RegisterOptions;
 }
 
 export function Input({ name, placeholder, type, register, rules, error }: InputProps){
@@ -18,7 +18,7 @@ export function Input({ name, placeholder, type, register, rules, error }: Input
         {...register(name, rules)}
         id={name}
         />
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500 mt-1">{error}</p>}
     </div>
   )
 }
