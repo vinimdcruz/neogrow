@@ -11,7 +11,7 @@ import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { FiMail } from 'react-icons/fi';
-import { FaUser } from 'react-icons/fa';
+import { FaLock } from 'react-icons/fa';
 
 const schema = z.object({
   email: z.string().email("Insira um e-mail válido").nonempty("O campo e-mail é obrigatório"),
@@ -48,8 +48,8 @@ export default function Login() {
               >
                 <div className="mb-1">
                   <div className="pl-1 pb-1 text-[17px] flex justify-between items-center">
-                    Nome
-                    <FaUser size={18} color="gray" />
+                    Email
+                    <FiMail size={18} color="gray" />
                   </div>
                     <Input 
                       type="email"
@@ -63,8 +63,8 @@ export default function Login() {
 
                 <div className="mb-3">
                   <div className="pl-1 pb-1 text-[17px] flex justify-between items-center">
-                    E-mail
-                    <FiMail size={18} color="gray" />
+                    Senha
+                    <FaLock size={18} color="gray" />
                   </div>
                     <Input
                       type="password"
