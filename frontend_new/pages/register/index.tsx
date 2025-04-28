@@ -10,6 +10,10 @@ import { useForm } from "react-hook-form"
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { FaUser } from 'react-icons/fa';
+import { FiMail } from 'react-icons/fi';
+import { FaLock } from 'react-icons/fa';
+
 const schema = z.object({
   name: z.string().nonempty("O campo nome é obrigatório."),
   email: z.string().email("Insira um e-mail válido").nonempty("O campo e-mail é obrigatório"),
@@ -45,6 +49,10 @@ export default function Register() {
               onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="mb-3">
+                  <div className="pl-1 pb-1 text-[17px] flex justify-between items-center">
+                    Nome
+                  <FaUser size={18} color="gray" />
+                  </div>
                   <Input 
                     type="text"
                     placeholder="Digite seu nome completo"
@@ -55,6 +63,10 @@ export default function Register() {
                 </div>
 
                 <div className="mb-3">
+                  <div className="pl-1 pb-1 text-[17px] flex justify-between items-center">
+                      Email
+                    <FiMail size={18} color="gray" />
+                  </div>
                   <Input 
                     type="email"
                     placeholder="Digite seu e-mail"
@@ -65,6 +77,10 @@ export default function Register() {
                 </div>
 
                 <div className="mb-3">
+                  <div className="pl-1 pb-1 text-[17px] flex justify-between items-center">
+                    Senha
+                  <FaLock size={18} color="gray" />
+                  </div>
                   <Input
                     type="password"
                     placeholder="Digite sua senha"
