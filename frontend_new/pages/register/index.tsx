@@ -1,4 +1,3 @@
-import { FormEvent, useState } from "react"
 
 import Image from 'next/image';
 import minhaImagem from '@/assets/logo.jpg'
@@ -35,12 +34,12 @@ export default function Register() {
 
     return (
     <Container>
-          <div className="w-full min-h-screen flex justify-center items-center flex-col gap-4">
+          <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1">
             <Link href="/">
               <Image
                 src={minhaImagem}
                 alt="Logo do Site"
-                className="h-60 w-50 mb-3"
+                className="h-10 w-60"
               />
             </Link>
 
@@ -90,13 +89,13 @@ export default function Register() {
                   />
                 </div>
 
-              <button type="submit" className="w-full h-10 bg-blue-600 rounded-md text-white hover:bg-blue-700 cursor-pointer">
+              <button type="submit" className="w-full h-10 bg-blue-600 rounded-md text-white hover:bg-blue-700 mb-2 mt-2 cursor-pointer">
                 Cadastrar  
               </button>    
             </form>
             
             <Link href="/login" className="cursor-pointer hover:text-blue-600 transition-colors duration-300">
-              Já tem uma conta? Faça login.
+              Já tem uma conta? Faça login
             </Link>
 
           </div>

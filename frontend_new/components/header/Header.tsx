@@ -16,15 +16,18 @@ export function Header(){
             <header className='flex w-full max-w-7xl items-center justify-between px-4 mx-auto'>
                 <Link href="/">
                     <div className='flex items-center gap-2'>
-                        <span className="text-xl">👶 NeoGrow</span>
+                        <Image 
+                            src={minhaImagem}
+                            alt="Logotipo" 
+                            className="h-6 w-30"/>
                     </div>
                 </Link>
 
                 {!loadingAuth && signed && (
-                    <Link href="/register">
+                    <Link href="/">
                     <button className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-8 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
-                      <FaUser className="h-4 w-4 mr-2" />
-                        Cadastre-se
+                      <FiLogIn className="h-4 w-4 mr-2" />
+                        Sair
                     </button>
                     </Link>
                 )}
