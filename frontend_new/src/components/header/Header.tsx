@@ -4,8 +4,6 @@ import Link from "next/link"
 import { FiUser, FiLogIn } from 'react-icons/fi'
 import { FaUser, FaBaby, FaLock } from 'react-icons/fa'
 
-
-
 export function Header(){
     const signed = false;
     const loadingAuth = false;

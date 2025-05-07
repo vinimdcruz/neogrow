@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Header } from "@/components/header/Header"
 import { Container } from "@/components/container/Container"
 import {
@@ -43,7 +42,7 @@ export default function Main() {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-gray-300 p-6 shadow-lg bg-white dark:bg-gray-900">
+              <div className="rounded-xl border border-gray-300 p-6 shadow-lg bg-white ">
                 <h3 className="text-xl font-semibold mb-2">Acompanhamento Inteligente</h3>
                 <p className="text-sm text-muted-foreground mb-6">
                   Monitore o crescimento com precisão e receba insights personalizados.
@@ -102,7 +101,7 @@ export default function Main() {
                   desc: "Gráficos e insights"
                 }
               ].map((item, i) => (
-                <div key={i} className="flex items-start gap-4 p-5 border border-gray-300 rounded-lg shadow-sm bg-white dark:bg-gray-900">
+                <div key={i} className="flex items-start gap-4 p-5 border border-gray-300 rounded-lg shadow-sm bg-white ">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
                     {item.icon}
                   </div>
@@ -119,7 +118,7 @@ export default function Main() {
       </Container>
 
       {/* Footer */}
-        <footer className="w-full h-full border-t bg-blue-600 backdrop-blur-sm py-8 mt-16">
+        <footer className="w-full h-full border-t bg-blue-600 backdrop-blur-sm py-3 mt-16">
           <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-4">
             <div className="flex items-center gap-2 text-white">
               <FaBaby className="h-5 w-5 text-white" />
