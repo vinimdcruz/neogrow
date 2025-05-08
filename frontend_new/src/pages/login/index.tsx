@@ -33,12 +33,12 @@ export default function Login() {
 
     return (
     <Container>
-          <div className="w-full min-h-screen flex justify-center items-center flex-col gap-4">
+          <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1">
             <Link href="/">
               <Image
                 src={minhaImagem}
                 alt="Logo do Site"
-                className="h-60 w-50"
+                className="h-10 w-60"
               />
             </Link>
 
@@ -75,13 +75,13 @@ export default function Login() {
                     />
                 </div>
 
-              <button type="submit" className="w-full h-10 bg-blue-600 rounded-md text-white hover:bg-blue-700 cursor-pointer">
+              <button type="submit" className="w-full h-10 bg-blue-600 rounded-md text-white hover:bg-blue-700 mb-2 mt-1 cursor-pointer">
                 Acessar  
               </button>    
             </form>
 
             <Link href="/register" className="cursor-pointer hover:text-blue-600 transition-colors duration-300">
-              Não tem uma conta? Cadastre-se.
+              Não tem uma conta? Cadastre-se
             </Link>
 
           </div>
