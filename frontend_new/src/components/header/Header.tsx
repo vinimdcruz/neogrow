@@ -1,10 +1,8 @@
 import Image from 'next/image';
 import minhaImagem from '@/assets/logo.jpg'
 import Link from "next/link"
-import { FiUser, FiLogIn } from 'react-icons/fi'
-import { FaUser, FaBaby, FaLock } from 'react-icons/fa'
-
-
+import { FiLogIn } from 'react-icons/fi'
+import { FaLock } from 'react-icons/fa'
 
 export function Header(){
     const signed = false;
@@ -12,14 +10,14 @@ export function Header(){
 
 
     return(
-        <div className='w-full flex items-center justify-center h-16 bg-background/95 drop-shadow mb-4'>
+        <div className='w-full flex items-center justify-center h-16 bg-background/95 drop-shadow mb-4 sticky top-0 z-200'>
             <header className='flex w-full max-w-7xl items-center justify-between px-4 mx-auto'>
                 <Link href="/">
                     <div className='flex items-center gap-2'>
                         <Image 
                             src={minhaImagem}
                             alt="Logotipo" 
-                            className="h-6 w-30"/>
+                            className="h-7 w-35"/>
                     </div>
                 </Link>
 
