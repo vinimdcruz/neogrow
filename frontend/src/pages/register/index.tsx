@@ -89,6 +89,20 @@ export default function Register() {
                   />
                 </div>
 
+                <div className="mb-3">
+                  <div className="pl-1 pb-1 text-[17px] flex justify-between items-center">
+                    Confirmar senha
+                  <FaLock size={18} color="gray" />
+                  </div>
+                  <Input
+                    type="password"
+                    placeholder="Digite sua senha"
+                    name="password"
+                    error={errors.password?.message}
+                    register={register}
+                  />
+                </div>
+
               <button type="submit" className="w-full h-10 bg-blue-600 rounded-md text-white hover:bg-blue-700 mb-2 mt-2 cursor-pointer">
                 Cadastrar  
               </button>    

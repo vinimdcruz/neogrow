@@ -10,7 +10,7 @@ export function Footer(){
                       <p className="text-bg">© 2025 NeoGrow — Todos os direitos reservados.</p>
                     </div>
                     <div className="text-bg text-white">
-                      Desenvolvido com por NeoGrow
+                      Desenvolvido por NeoGrow ©
                     </div>
                 </div>
             </footer>

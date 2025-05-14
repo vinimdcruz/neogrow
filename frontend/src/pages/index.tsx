@@ -42,7 +42,7 @@ export default function Main() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-blue-400 p-8 shadow-2xl bg-white backdrop-blur-sm hover:translate-y-[-5px]">
+              <div className="rounded-2xl border border-blue-400 p-8 shadow-2xl bg-white backdrop-blur-sm hover:translate-y-[-5px] text-center md:text-left">
                 <h3 className="text-2xl font-bold mb-4">Acompanhamento Inteligente</h3>
                 <p className="text-gray-600 mb-8">
                   Monitore o crescimento com precisão e receba insights baseados em métricas de crescimento.
@@ -81,7 +81,7 @@ export default function Main() {
               <span className="inline-block rounded-full bg-blue-100 px-4 py-1.5 text-sm text-blue-700 font-medium mb-4">
                 Recursos
               </span>
-              <h2 className="text-3xl font-bold mb-4">Funcionalidades</h2>
+              <h2 className="text-2xl font-bold mb-4">Funcionalidades</h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                 Ferramentas para acompanhar o desenvolvimento do seu bebê
               </p>
@@ -126,7 +126,7 @@ export default function Main() {
 
           {/* CTA Section */}
           <section className="w-full mt-32 py-16 px-8 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 text-white text-center">
-            <h2 className="text-3xl font-bold mb-6">Acompanhe o crescimento do seu bebê hoje</h2>
+            <h2 className="text-3xl font-bold mb-6">Acompanhe o crescimento do seu bebê hoje 👶</h2>
             <p className="text-xl max-w-2xl mx-auto mb-8 text-blue-100">
               Acesse nossa API e integre com sua aplicação para melhor acompanhamento.
             </p>
