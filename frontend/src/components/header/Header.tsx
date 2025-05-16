@@ -5,7 +5,7 @@ import { FiLogIn, FiUserPlus } from 'react-icons/fi'
 import { FaLock } from 'react-icons/fa'
 
 export function Header(){
-    const signed = false;
+    const signed = true;
     const loadingAuth = false;
 
 
