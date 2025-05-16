@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import minhaImagem from '@/assets/logo.jpg'
 import Link from "next/link"
-import { FiLogIn } from 'react-icons/fi'
+import { FiLogIn, FiUserPlus } from 'react-icons/fi'
 import { FaLock } from 'react-icons/fa'
 
 export function Header(){
@@ -21,23 +21,34 @@ export function Header(){
                     </div>
                 </Link>
 
-                {!loadingAuth && signed && (
-                    <Link href="/">
-                    <button className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-8 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
-                      <FiLogIn className="h-4 w-4 mr-2" />
-                        Sair
-                    </button>
-                    </Link>
-                )}
+                    <div className="ml-auto flex items-right gap-3">
+                        {!loadingAuth && signed && (
+                            <Link href="/">
+                            <button className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-8 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
+                                <FiLogIn className="h-4 w-4 mr-2" />
+                                Sair
+                            </button>
+                            </Link>
+                        )}
 
-                {!loadingAuth && !signed && (
-                    <Link href="/login">
-                    <button className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-8 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
-                      <FaLock className="h-4 w-4 mr-2" />
-                        Login
-                    </button>
-                    </Link>
-                )}
+                        {!loadingAuth && !signed && (
+                            <>
+                            <Link href="/login">
+                                <button className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-8 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
+                                <FaLock className="h-4 w-4 mr-2" />
+                                Login
+                                </button>
+                            </Link>
+
+                            <Link href="/register">
+                                <button className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
+                                <FiUserPlus className="h-4 w-4 mr-2" />
+                                Registrar
+                                </button>
+                            </Link>
+                            </>
+                        )}
+                    </div>
             </header>
         </div>
     )
