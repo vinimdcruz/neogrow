@@ -2,52 +2,86 @@
 
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
+import { useState, useEffect } from "react";
+import { FiUserPlus } from "react-icons/fi";
+
+
+interface babyProps {
+  id: number;
+  nome: string;
+  descricao: string;
+  nascimento: string; // Recebido como string de uma API
+  peso: number;
+  estatura: number;
+  cabeça: number;
+}
 
 export default function Home() {
-  const itens = [
-    { id: 1, titulo: "👶 Item 1", descricao: "Descrição do item 1" },
-    { id: 2, titulo: "👶 Item 2", descricao: "Descrição do item 2" },
-    { id: 3, titulo: "👶 Item 3", descricao: "Descrição do item 3" },
-    { id: 4, titulo: "👶 Item 4", descricao: "Descrição do item 4" },
-    { id: 5, titulo: "👶 Item 5", descricao: "Descrição do item 5" },
-    { id: 6, titulo: "👶 Item 6", descricao: "Descrição do item 6" },
-    { id: 7, titulo: "👶 Item 7", descricao: "Descrição do item 7" },
-    { id: 8, titulo: "👶 Item 8", descricao: "Descrição do item 8" },
-    { id: 9, titulo: "👶 Item 9", descricao: "Descrição do item 9" },
-  ];
+  const [babies, setBabies] = useState<babyProps[]>([]);
+
+  useEffect(() => {
+    async function fetchBabies() {
+      try {
+        const res = await fetch("/api/teste");
+        const data = await res.json();
+        setBabies(data);
+      } catch (error) {
+        console.error("Erro ao buscar dados do bebê:", error);
+      }
+    }
+
+    fetchBabies();
+  }, []);
+
 
   return (
-    <div className="h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-white">
       <Header />
       <Container>
         <section className="h-full bg-white p-4 md:p-6 overflow-auto">
-          {/* Cabeçalho */}
           <header className="mb-8 text-center">
             <h1 className="text-xl font-bold text-gray-600">
-              Minha Lista de Itens
+              Minha Lista de Informações
             </h1>
           </header>
 
-          {/* Lista de itens */}
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {itens.slice(0, 9).map((item) => (
+            {babies.map((baby) => (
               <div
-                key={item.id + item.titulo}
+                key={baby.id}
                 className="overflow-hidden rounded-lg border border-blue-200 bg-white shadow-md transition-all hover:border-blue-400 hover:shadow-lg"
               >
-                {/* Cabeçalho*/}
                 <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4">
                   <h2 className="text-base font-semibold text-white">
-                    {item.titulo}
+                    {baby.nome}
                   </h2>
                 </div>
 
-                {/* Conteúdo do card */}
                 <div className="p-4">
-                  <p className="text-gray-700 text-sm">{item.descricao}</p>
-                  <button className="mt-4 rounded-md border bg-background px-2 py-2 text-xs font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
-                    Registrar Informações
-                  </button>
+                    <div className="mb-2 text-gray-700 text-sm">
+                        <p className="font-bold mb-1">Descrição:</p>
+                        <p className="text-gray-700 text-sm">{baby.descricao}</p>
+                    </div>
+                    <div className="mb-2 text-gray-700 text-sm">
+                        <p className="font-bold mb-1">Nascimento:</p>
+                        <p className="text-gray-700 text-sm">{new Date(baby.nascimento).toLocaleDateString("pt-BR")}</p>
+                    </div>
+                    <div className="mb-2 text-gray-700 text-sm">
+                        <p className="font-bold mb-1">Peso (kg):</p>
+                        <p className="text-gray-700 text-sm">{baby.peso}</p>
+                    </div>
+                    <div className="mb-2 text-gray-700 text-sm">
+                        <p className="font-bold mb-1">Estatura (cm):</p>
+                        <p className="text-gray-700 text-sm">{baby.estatura}</p>
+                    </div>
+                    <div className="mb-2 text-gray-700 text-sm">
+                        <p className="font-bold mb-1">Comprimento da Cabeça (cm):</p>
+                        <p className="text-gray-700 text-sm">{baby.cabeça}</p>
+                    </div>
+                    <button className="inline-flex mt-2 rounded-md border bg-background px-2 py-2 text-xs font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
+                        <FiUserPlus className="h-4 w-4 mr-2" />
+                        Registrar Informações
+                    </button>
                 </div>
               </div>
             ))}
