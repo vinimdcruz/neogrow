@@ -5,7 +5,7 @@ import { FiLogIn, FiUserPlus } from 'react-icons/fi'
 import { FaLock } from 'react-icons/fa'
 
 export function Header(){
-    const signed = false;
+    const signed = true;
     const loadingAuth = false;
 
 
@@ -43,7 +43,7 @@ export function Header(){
                             <Link href="/register">
                                 <button className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
                                 <FiUserPlus className="h-4 w-4 mr-2" />
-                                Registrar
+                                Cadastrar-se
                                 </button>
                             </Link>
                             </>
