@@ -5,15 +5,13 @@ import { Container } from "@/components/container/Container";
 import { useState, useEffect } from "react";
 import { FiUserPlus } from "react-icons/fi";
 
-
 interface babyProps {
   id: number;
-  nome: string;
-  descricao: string;
-  nascimento: string; // Recebido como string de uma API
-  peso: number;
-  estatura: number;
-  cabeça: number;
+  name: string;
+  date: string; // Será formatada para "dd/MM/yyyy"
+  weight: number;
+  height: number;
+  head_circumference: number;
 }
 
 export default function Home() {
@@ -32,7 +30,6 @@ export default function Home() {
 
     fetchBabies();
   }, []);
-
 
   return (
     <div className="min-h-screen bg-white">
@@ -53,32 +50,28 @@ export default function Home() {
               >
                 <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4">
                   <h2 className="text-base font-semibold text-white">
-                    {baby.nome}
+                    {baby.name}
                   </h2>
                 </div>
 
                 <div className="p-4">
                     <div className="mb-2 text-gray-700 text-sm">
-                        <p className="font-bold mb-1">Descrição:</p>
-                        <p className="text-gray-700 text-sm">{baby.descricao}</p>
-                    </div>
-                    <div className="mb-2 text-gray-700 text-sm">
                         <p className="font-bold mb-1">Nascimento:</p>
-                        <p className="text-gray-700 text-sm">{new Date(baby.nascimento).toLocaleDateString("pt-BR")}</p>
+                        <p className="text-gray-700 text-sm">{new Date(baby.date).toLocaleDateString("pt-BR")}</p>
                     </div>
                     <div className="mb-2 text-gray-700 text-sm">
                         <p className="font-bold mb-1">Peso (kg):</p>
-                        <p className="text-gray-700 text-sm">{baby.peso}</p>
+                        <p className="text-gray-700 text-sm">{baby.weight}</p>
                     </div>
                     <div className="mb-2 text-gray-700 text-sm">
-                        <p className="font-bold mb-1">Estatura (cm):</p>
-                        <p className="text-gray-700 text-sm">{baby.estatura}</p>
+                        <p className="font-bold mb-1">Altura (cm):</p>
+                        <p className="text-gray-700 text-sm">{baby.height}</p>
                     </div>
                     <div className="mb-2 text-gray-700 text-sm">
-                        <p className="font-bold mb-1">Comprimento da Cabeça (cm):</p>
-                        <p className="text-gray-700 text-sm">{baby.cabeça}</p>
+                        <p className="font-bold mb-1">Circunferência da Cabeça (cm):</p>
+                        <p className="text-gray-700 text-sm">{baby.head_circumference}</p>
                     </div>
-                    <button className="inline-flex mt-2 rounded-md border bg-background px-2 py-2 text-xs font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
+                    <button className="w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-all duration-300">
                         <FiUserPlus className="h-4 w-4 mr-2" />
                         Registrar Informações
                     </button>
