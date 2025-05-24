@@ -56,7 +56,7 @@ export default function BabyRegister() {
 
       if (res.ok) {
         alert("Registro salvo com sucesso!");
-        router.push("/babylist");
+        router.push("/babiespage");
       } else {
         alert("Erro ao registrar.");
       }
@@ -72,7 +72,7 @@ export default function BabyRegister() {
       <Container>
         <div className="h-full bg-white p-4 md:p-6 overflow-auto">
           <button
-            onClick={() => router.push("/babylist")}
+            onClick={() => router.push("/babiespage")}
             className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm mb-40 cursor-pointer hover:text-blue-600 transition-colors duration-300"
           >
             <FiArrowLeft className="h-4 w-4 mr-2" />
