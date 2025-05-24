@@ -3,7 +3,8 @@
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { useState, useEffect } from "react";
-import { FiUserPlus } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
+import Link from "next/link"
 
 interface babyProps {
   id: number;
@@ -14,7 +15,7 @@ interface babyProps {
   head_circumference: number;
 }
 
-export default function Home() {
+export default function BabyList() {
   const [babies, setBabies] = useState<babyProps[]>([]);
 
   useEffect(() => {
@@ -56,10 +57,6 @@ export default function Home() {
 
                 <div className="p-4">
                     <div className="mb-2 text-gray-700 text-sm">
-                        <p className="font-bold mb-1">Nascimento:</p>
-                        <p className="text-gray-700 text-sm">{new Date(baby.date).toLocaleDateString("pt-BR")}</p>
-                    </div>
-                    <div className="mb-2 text-gray-700 text-sm">
                         <p className="font-bold mb-1">Peso (kg):</p>
                         <p className="text-gray-700 text-sm">{baby.weight}</p>
                     </div>
@@ -72,8 +69,10 @@ export default function Home() {
                         <p className="text-gray-700 text-sm">{baby.head_circumference}</p>
                     </div>
                     <button className="w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-all duration-300">
-                        <FiUserPlus className="h-4 w-4 mr-2" />
-                        Registrar Informações
+                        <Link href={`/registerdetails/${baby.name}`} className="flex items-center w-full justify-center">
+                          <FiEdit className="h-4 w-4 mr-2" />
+                          Editar Informações
+                        </Link>
                     </button>
                 </div>
               </div>
