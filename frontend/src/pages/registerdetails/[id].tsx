@@ -56,7 +56,7 @@ export default function BabyRegister() {
 
       if (res.ok) {
         alert("Registro salvo com sucesso!");
-        router.push("/home");
+        router.push("/babylist");
       } else {
         alert("Erro ao registrar.");
       }
@@ -72,7 +72,7 @@ export default function BabyRegister() {
       <Container>
         <div className="h-full bg-white p-4 md:p-6 overflow-auto">
           <button
-            onClick={() => router.push("/home")}
+            onClick={() => router.push("/babylist")}
             className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm mb-40 cursor-pointer hover:text-blue-600 transition-colors duration-300"
           >
             <FiArrowLeft className="h-4 w-4 mr-2" />
@@ -86,35 +86,16 @@ export default function BabyRegister() {
             >
               <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4 text-center overflow-hidden rounded-lg">
                   <h2 className="text-base font-semibold text-white">
-                    Registrar Informações 👶 # {id}
+                     {form.name ? `${form.name}` : `${id}`}
                   </h2>
-                </div>
-
-              <input
-                type="text"
-                name="name"
-                placeholder="Nome"
-                value={form.name}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2"
-                required
-              />
-
-              <input
-                type="date"
-                name="date"
-                value={form.date}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2"
-                required
-              />
+              </div>
 
               <input
                 type="number"
-                step="0.01"
-                name="weight"
-                placeholder="Peso (kg)"
-                value={form.weight}
+                step="0.1"
+                name="height"
+                placeholder="Altura (cm)"
+                value={form.height}
                 onChange={handleChange}
                 className="w-full border rounded-md p-2"
                 required
@@ -123,9 +104,9 @@ export default function BabyRegister() {
               <input
                 type="number"
                 step="0.1"
-                name="height"
-                placeholder="Altura (cm)"
-                value={form.height}
+                name="weight"
+                placeholder="Peso (kg)"
+                value={form.weight}
                 onChange={handleChange}
                 className="w-full border rounded-md p-2"
                 required
