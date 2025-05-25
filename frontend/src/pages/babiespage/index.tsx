@@ -3,7 +3,8 @@
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { useState, useEffect } from "react";
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiArrowLeft } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 import Link from "next/link"
 
 interface babyProps {
@@ -32,11 +33,20 @@ export default function BabyList() {
     fetchBabies();
   }, []);
 
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
       <Container>
         <section className="h-full bg-white p-4 md:p-6 overflow-auto">
+          <button
+            onClick={() => router.push("/dashboard")}
+            className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
+            >
+              <FiArrowLeft className="h-4 w-4 mr-2" />
+                Voltar
+          </button>
           <header className="mb-8 text-center">
             <h1 className="text-xl font-bold text-gray-600">
               Minha Lista de Informações
@@ -56,6 +66,10 @@ export default function BabyList() {
                 </div>
 
                 <div className="p-4">
+                    <div className="mb-2 text-gray-700 text-sm">
+                        <p className="font-bold mb-1">Nascimento:</p>
+                        <p className="text-gray-700 text-sm">{new Date(baby.date).toLocaleDateString("pt-BR")}</p>
+                    </div>
                     <div className="mb-2 text-gray-700 text-sm">
                         <p className="font-bold mb-1">Peso (kg):</p>
                         <p className="text-gray-700 text-sm">{baby.weight}</p>

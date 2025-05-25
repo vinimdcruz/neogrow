@@ -14,7 +14,7 @@ interface BabyForm {
   head_circumference: string;
 }
 
-export default function BabyRegister() {
+export default function RegisterDetails() {
   const params = useParams();
   const router = useRouter();
 

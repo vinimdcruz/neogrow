@@ -7,6 +7,7 @@ let babies = [
   {
     id: 1,
     name: "Registro 1 👶",
+    date: "2024-04-21",
     weight: 3.2,
     height: 50,
     head_circumference: 35,
@@ -14,6 +15,7 @@ let babies = [
   {
     id: 2,
     name: "Registro 2 👶",
+    date: "2024-04-21",
     weight: 3.2,
     height: 50,
     head_circumference: 35,
@@ -21,6 +23,7 @@ let babies = [
   {
     id: 3,
     name: "Registro 3 👶",
+    date: "2024-04-21",
     weight: 3.2,
     height: 50,
     head_circumference: 35,
