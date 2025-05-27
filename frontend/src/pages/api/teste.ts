@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 // Dados simulados da lista
 let babies = [
-  {
+  {/*
     id: 1,
     name: "Registro 1 👶",
     date: "2024-04-21",
@@ -27,7 +27,7 @@ let babies = [
     weight: 3.2,
     height: 50,
     head_circumference: 35,
-  }
+  */}
 ];
 
 // Função que responde as requisições para /api/teste

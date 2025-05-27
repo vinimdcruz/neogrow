@@ -84,7 +84,7 @@ export default function RegisterDetails() {
               onSubmit={handleSubmit}
               className="w-full max-w-md space-y-4 border border-blue-200 rounded-lg p-6 shadow-md bg-white shadow-md transition-all hover:border-blue-400 hover:shadow-lg"
             >
-              <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4 text-center overflow-hidden rounded-lg">
+              <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-3 text-center overflow-hidden rounded-lg">
                   <h2 className="text-base font-semibold text-white">
                      {form.name ? `${form.name}` : `${id}`}
                   </h2>

@@ -34,6 +34,7 @@ export default function BabyList() {
   }, []);
 
   const router = useRouter();
+  const isNotEmpty = (value: string | undefined | number ) => value !== "" && value !== "0" && value !== undefined;
 
   return (
     <div className="min-h-screen bg-white">
@@ -66,26 +67,40 @@ export default function BabyList() {
                 </div>
 
                 <div className="p-4">
-                    <div className="mb-2 text-gray-700 text-sm">
-                        <p className="font-bold mb-1">Nascimento:</p>
-                        <p className="text-gray-700 text-sm">{new Date(baby.date).toLocaleDateString("pt-BR")}</p>
-                    </div>
-                    <div className="mb-2 text-gray-700 text-sm">
-                        <p className="font-bold mb-1">Peso (kg):</p>
-                        <p className="text-gray-700 text-sm">{baby.weight}</p>
-                    </div>
-                    <div className="mb-2 text-gray-700 text-sm">
-                        <p className="font-bold mb-1">Altura (cm):</p>
-                        <p className="text-gray-700 text-sm">{baby.height}</p>
-                    </div>
-                    <div className="mb-2 text-gray-700 text-sm">
-                        <p className="font-bold mb-1">Circunferência da Cabeça (cm):</p>
-                        <p className="text-gray-700 text-sm">{baby.head_circumference}</p>
-                    </div>
+                      {isNotEmpty(baby.date) && (
+                        <div className="mb-2 text-gray-700 text-sm">
+                          <p className="font-bold mb-1">Nascimento:</p>
+                          <p className="text-gray-700 text-sm">
+                            {new Date(baby.date!).toLocaleDateString("pt-BR")}
+                          </p>
+                        </div>
+                      )}
+
+                      {isNotEmpty(baby.weight) && (
+                        <div className="mb-2 text-gray-700 text-sm">
+                          <p className="font-bold mb-1">Peso (kg):</p>
+                          <p className="text-gray-700 text-sm">{baby.weight}</p>
+                        </div>
+                      )}
+
+                      {isNotEmpty(baby.height) && (
+                        <div className="mb-2 text-gray-700 text-sm">
+                          <p className="font-bold mb-1">Altura (cm):</p>
+                          <p className="text-gray-700 text-sm">{baby.height}</p>
+                        </div>
+                      )}
+
+                      {isNotEmpty(baby.head_circumference) && (
+                        <div className="mb-2 text-gray-700 text-sm">
+                          <p className="font-bold mb-1">Circunferência da Cabeça (cm):</p>
+                          <p className="text-gray-700 text-sm">{baby.head_circumference}</p>
+                        </div>
+                      )}
+                    
                     <button className="w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-all duration-300">
                         <Link href={`/registerdetails/${baby.name}`} className="flex items-center w-full justify-center">
                           <FiEdit className="h-4 w-4 mr-2" />
-                          Editar Informações
+                          Adicionar Informações
                         </Link>
                     </button>
                 </div>

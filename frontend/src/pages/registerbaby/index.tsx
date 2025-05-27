@@ -9,9 +9,6 @@ import { FiArrowLeft } from 'react-icons/fi'
 interface BabyFormProps {
   name: string;
   date: string;
-  weight: string;
-  height: string;
-  head_circumference: string;
 }
 
 export default function RegisterBaby() {
@@ -23,9 +20,6 @@ export default function RegisterBaby() {
   const [form, setForm] = useState<BabyFormProps>({
     name: "",
     date: "",
-    weight: "",
-    height: "",
-    head_circumference: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,9 +42,6 @@ export default function RegisterBaby() {
         body: JSON.stringify({
           name: form.name,
           date: form.date,
-          weight: parseFloat(form.weight),
-          height: parseFloat(form.height),
-          head_circumference: parseFloat(form.head_circumference),
         }),
       });
 
@@ -84,49 +75,27 @@ export default function RegisterBaby() {
               onSubmit={handleSubmit}
               className="w-full max-w-md space-y-4 border border-blue-200 rounded-lg p-6 shadow-md bg-white shadow-md transition-all hover:border-blue-400 hover:shadow-lg"
             >
-              <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4 text-center overflow-hidden rounded-lg">
+              <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-3 text-center overflow-hidden rounded-lg">
                   <h2 className="text-base font-semibold text-white">
                      Registrar Informação
                   </h2>
               </div>
 
               <input
+                type="name"
+                name="name"
+                placeholder="Adicione o nome"
+                autoComplete="off"
+                value={form.name}
+                onChange={handleChange}
+                className="w-full border rounded-md p-2"
+                required
+              />
+                
+              <input
                 type="date"
                 name="date"
                 value={form.date}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2"
-                required
-              />
-
-              <input
-                type="number"
-                step="0.1"
-                name="height"
-                placeholder="Altura (cm)"
-                value={form.height}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2"
-                required
-              />
-
-              <input
-                type="number"
-                step="0.1"
-                name="weight"
-                placeholder="Peso (kg)"
-                value={form.weight}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2"
-                required
-              />
-
-              <input
-                type="number"
-                step="0.1"
-                name="head_circumference"
-                placeholder="Circunferência da Cabeça (cm)"
-                value={form.head_circumference}
                 onChange={handleChange}
                 className="w-full border rounded-md p-2"
                 required
