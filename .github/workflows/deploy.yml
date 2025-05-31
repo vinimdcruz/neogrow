@@ -1,0 +1,46 @@
+name: Deploy Backend API to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Check if backend folder changed
+      id: check_changes
+      run: |
+        git fetch origin main
+        if git diff --quiet HEAD^ HEAD -- backend/; then
+          echo "No changes in backend."
+          echo "changed=false" >> $GITHUB_OUTPUT
+        else
+          echo "Changes detected in backend."
+          echo "changed=true" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Set up SSH
+      if: steps.check_changes.outputs.changed == 'true'
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy Backend
+      if: steps.check_changes.outputs.changed == 'true'
+      run: |
+        ssh -i ~/.ssh/id_rsa ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
+          cd /home/ec2-user/neogrow
+          git pull origin main
+          docker stop neogrow-api || true
+          docker rm neogrow-api || true
+          docker build -t neogrow-api backend/
+          docker run -d -p 80:8000 --env-file backend/.env --name neogrow-api neogrow-api
+        EOF
