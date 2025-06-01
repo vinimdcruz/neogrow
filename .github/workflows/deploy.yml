@@ -37,6 +37,7 @@ jobs:
       if: steps.check_changes.outputs.changed == 'true'
       run: |
         ssh -i ~/.ssh/id_rsa ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
+          set -e
           cd /home/ec2-user/neogrow
           git pull origin main
           docker stop neogrow-api || true
