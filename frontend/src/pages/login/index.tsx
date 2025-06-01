@@ -12,10 +12,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FiMail } from 'react-icons/fi';
 import { FaLock } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
+import { useAuth } from '../../context/authContext';
 
 // Validação do formulário com Zod
 const schema = z.object({
-  username: z.string().nonempty("O campo de e-mail é obrigatório"),
+  email: z.string().nonempty("O campo de e-mail é obrigatório"),
   password: z.string().nonempty("O campo senha é obrigatório."),
 });
 
@@ -29,20 +30,27 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { login } = useAuth();
 
   async function onSubmit(data: FormData) {
     try {
       setLoading(true);
 
-      console.log("Enviando login para API:", data);
+      const formBody = new URLSearchParams();
+      formBody.append("grant_type", "password");
+      formBody.append("scope", "value");
+      formBody.append("client_id", "string");
+      formBody.append("client_secret", "string");
+      formBody.append("username", data.email);
+      formBody.append("password", data.password);
 
       const response = await fetch("http://44.203.139.11/api/auth/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "Coloque a chave da API", 
+          "Content-Type": "application/x-www-form-urlencoded",
+          "x-api-key": "SUA_CHAVE_AQUI",
         },
-        body: JSON.stringify(data),
+        body: formBody.toString(),
       });
 
       if (!response.ok) {
@@ -55,13 +63,20 @@ export default function Login() {
       const result = await response.json();
       console.log("Login realizado:", result);
 
-      // Armazena o token
-      if (result.token) {
-        localStorage.setItem("token", result.token);
-      }
+      if (result.access_token) {
+        const user = {
+          uid: "api-user",
+          name: "Usuário",
+          email: data.email
+        };
 
-      alert("Login realizado com sucesso!");
-      router.push("/dashboard");
+        login(result.access_token, user, () => {
+          alert("Login realizado com sucesso!");
+          router.push("/dashboard");
+        });
+      } else {
+        alert("Erro: resposta inválida da API.");
+      }
 
     } catch (err) {
       console.error("Erro na requisição:", err);
@@ -93,9 +108,9 @@ export default function Login() {
             </div>
             <Input
               type="text"
-              placeholder="Digite seu email de usuário"
-              name="username"
-              error={errors.username?.message}
+              placeholder="Digite seu email"
+              name="email"
+              error={errors.email?.message}
               register={register}
             />
           </div>

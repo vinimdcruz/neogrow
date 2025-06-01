@@ -21,7 +21,7 @@ export default function Main() {
                   </h2>
                 </div>
                 <p className="text-xl text-gray-600 max-w-xl text-center md:text-left">
-                  Backend com FastAPI para acompanhamento do crescimento de bebês com insights personalizados.
+                  Backend com FastAPI para acompanhamento do crescimento do seu bebê com insights personalizados.
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center items-center md:justify-start md:items-start">
                   <a

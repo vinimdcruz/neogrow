@@ -1,28 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import minhaImagem from '@/assets/logo.jpg';
 import Link from "next/link";
-import { FiLogIn, FiUserPlus } from 'react-icons/fi';
+import { FiLogIn, FiUserPlus, FiLogOut, FiHome } from 'react-icons/fi';
+import { MdDashboard } from 'react-icons/md'
 import { FaLock } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/authContext'; // ajuste o caminho se necessário
 
 export function Header() {
-  const [signed, setSigned] = useState(false);
-  const [loadingAuth, setLoadingAuth] = useState(true);
-
-  useEffect(() => {
-    // Executa apenas no client
-    const token = localStorage.getItem("token");
-    setSigned(!!token); // true se houver token
-    setLoadingAuth(false); // fim do carregamento
-  }, []);
+  const { signed, user, logout, loading } = useAuth();
+  const router = useRouter();
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    setSigned(false);
-    window.location.href = '/login'; // força redirecionamento
+    logout();
+    router.push('/');
   }
+
+  function goToDashboard() {
+    router.push('/dashboard');
+  }
+
+  if (loading) return null;
 
   return (
     <div className='w-full flex items-center justify-center h-16 bg-background/95 drop-shadow mb-4 sticky top-0 z-200'>
@@ -37,18 +37,30 @@ export function Header() {
           </div>
         </Link>
 
-        <div className="ml-auto flex items-right gap-3">
-          {!loadingAuth && signed && (
-            <button
-              onClick={handleLogout}
-              className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-8 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300"
-            >
-              <FiLogIn className="h-4 w-4 mr-2" />
-              Sair
-            </button>
-          )}
+        <div className="ml-auto flex items-center gap-4">
+          {signed && user ? (
+            <>
+              <span className="text-sm text-gray-700 hidden sm:inline">
+                Olá, <strong>{user.email}</strong>
+              </span>
 
-          {!loadingAuth && !signed && (
+              <button
+                onClick={goToDashboard}
+                className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300"
+              >
+                <MdDashboard className="h-4 w-4 mr-2" />
+                Ir para Dashboard
+              </button>
+
+              <button
+                onClick={handleLogout}
+                className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300"
+              >
+                <FiLogOut className="h-4 w-4 mr-2" />
+                Sair
+              </button>
+            </>
+          ) : (
             <>
               <Link href="/login">
                 <button className="inline-flex h-9 items-center justify-center rounded-md border bg-background px-8 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">

@@ -1,40 +1,55 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FiPlus, FiUsers, FiHome } from "react-icons/fi";
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { Sidebar } from "../../components/sidebar/Sidebar";
+import { useAuth } from "@/context/authContext"; // ou '../../context/authContext'
 
 export default function Dashboard() {
+  const { signed, loading } = useAuth();
+  const router = useRouter();
+
+  // Redireciona para Home se não estiver logado
+  useEffect(() => {
+    if (!loading && !signed) {
+      router.push("/");
+    }
+  }, [loading, signed, router]);
+
+  // Enquanto carrega ou não está logado, não renderiza a página
+  if (loading || !signed) return null;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
 
       <div className="flex">
-        {/* Barra Lateral */}
         <Sidebar />
-        {/* Conteúdo Principal */}
         <main className="flex-1 p-4">
           <Container>
             <h1 className="text-3xl font-bold text-gray-800 mb-6 mt-6">
               Painel de Controle
             </h1>
+
             <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:shadow-md transition-all mb-6">
-                <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                  Bem-vindo!
-                </h2>
-                <p className="text-sm text-gray-500 mb-4">
-                  Utilize o painel para gerenciar os dados e acompanhar as informações registradas.
-                </p>
-                <Link
-                  href="/"
-                  className="inline-flex items-center gap-2 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
-                >
-                  <FiHome />
-                  Página de Instruções
-                </Link>
-              </div>
+              <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                Bem-vindo!
+              </h2>
+              <p className="text-sm text-gray-500 mb-4">
+                Utilize o painel para gerenciar os dados e acompanhar as informações registradas.
+              </p>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+              >
+                <FiHome />
+                Página de Instruções
+              </Link>
+            </div>
 
             {/* Ações */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -71,7 +86,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Seção de Métricas */}
+            {/* Métricas */}
             <div className="mt-10">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                 Visão Geral
