@@ -1,12 +1,10 @@
 // contexts/authContext.tsx
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-
 interface UserData {
   uid: string;
   name: string;
   email: string;
 }
-
 interface AuthContextData {
   signed: boolean;
   user: UserData | null;

@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FaUser, FaLock } from 'react-icons/fa';
 import { FiMail } from 'react-icons/fi';
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from 'react-hot-toast';
 
 // Validação com Zod
 const schema = z.object({
@@ -44,8 +45,7 @@ export default function Register() {
       const response = await fetch('http://44.203.139.11/api/auth/register', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'Coloque a chave da API', 
+          'Content-Type': 'application/json', 
         },
         body: JSON.stringify({
           username: email, 
@@ -57,18 +57,19 @@ export default function Register() {
       if (!response.ok) {
         const error = await response.json();
         console.error("Erro da API:", error);
-        alert(error.message || "Erro ao cadastrar usuário.");
+        toast.error(error.message || "Erro ao cadastrar usuário. Tente novamente com um e-mail diferente.");
+        setLoading(false);
         return;
       }
 
       const resultado = await response.json();
       console.log("Usuário cadastrado:", resultado);
-      alert("Usuário cadastrado com sucesso!");
+      toast.success("Usuário cadastrado com sucesso!");
       router.push("/login");
 
     } catch (err) {
       console.error("Erro na requisição:", err);
-      alert("Erro de rede ao conectar com a API.");
+      toast.error("Erro de rede ao conectar com a API.");
     } finally {
       setLoading(false);
     }
@@ -76,6 +77,8 @@ export default function Register() {
 
   return (
     <Container>
+      <Toaster position="top-right" />
+
       <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1">
         <Link href="/">
           <Image

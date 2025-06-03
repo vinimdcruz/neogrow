@@ -13,6 +13,7 @@ import { FiMail } from 'react-icons/fi';
 import { FaLock } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import { useAuth } from '../../context/authContext';
+import toast, { Toaster } from 'react-hot-toast';
 
 // Validação do formulário com Zod
 const schema = z.object({
@@ -23,7 +24,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onChange"
   });
@@ -48,7 +49,6 @@ export default function Login() {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          "x-api-key": "SUA_CHAVE_AQUI",
         },
         body: formBody.toString(),
       });
@@ -56,7 +56,8 @@ export default function Login() {
       if (!response.ok) {
         const error = await response.json();
         console.error("Erro ao fazer login:", error);
-        alert(error.message || "Usuário ou senha inválidos.");
+        toast.error(error.message || "Usuário ou senha inválidos.");
+        reset({ email: '', password: '' });
         return;
       }
 
@@ -71,16 +72,16 @@ export default function Login() {
         };
 
         login(result.access_token, user, () => {
-          alert("Login realizado com sucesso!");
+          toast.success("Login realizado com sucesso!");
           router.push("/dashboard");
         });
       } else {
-        alert("Erro: resposta inválida da API.");
+        toast.error("Erro: resposta inválida da API.");
       }
 
     } catch (err) {
       console.error("Erro na requisição:", err);
-      alert("Erro ao conectar com a API.");
+      toast.error("Erro ao conectar com a API.");
     } finally {
       setLoading(false);
     }
@@ -88,6 +89,8 @@ export default function Login() {
 
   return (
     <Container>
+      <Toaster position="top-right" />
+
       <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1">
         <Link href="/">
           <Image
