@@ -4,11 +4,11 @@ import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { FiArrowLeft } from 'react-icons/fi'
+import { FiArrowLeft } from "react-icons/fi";
 
 interface BabyFormProps {
   name: string;
-  date: string;
+  birth_date: string;
 }
 
 export default function RegisterBaby() {
@@ -19,7 +19,7 @@ export default function RegisterBaby() {
 
   const [form, setForm] = useState<BabyFormProps>({
     name: "",
-    date: "",
+    birth_date: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,26 +34,38 @@ export default function RegisterBaby() {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/teste", {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("Você não está autenticado.");
+        return;
+      }
+
+      const res = await fetch("http://44.203.139.11/api/babies/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           name: form.name,
-          date: form.date,
+          birth_date: form.birth_date,
         }),
       });
+
+      const data = await res.json();
+      console.log("Status da resposta:", res.status);
+      console.log("Corpo da resposta:", data);
 
       if (res.ok) {
         alert("Registro salvo com sucesso!");
         router.push("/babiespage");
       } else {
-        alert("Erro ao registrar.");
+        alert("Erro ao registrar: " + (data?.detail || "Erro desconhecido."));
       }
     } catch (error) {
-      console.error("Erro:", error);
-      alert("Erro ao registrar.");
+      console.error("Erro ao enviar requisição:", error);
+      alert("Erro inesperado ao registrar.");
     }
   };
 
@@ -73,16 +85,16 @@ export default function RegisterBaby() {
           <div className="flex-grow flex items-center justify-center overflow-hidden">
             <form
               onSubmit={handleSubmit}
-              className="w-full max-w-md space-y-4 border border-blue-200 rounded-lg p-6 shadow-md bg-white shadow-md transition-all hover:border-blue-400 hover:shadow-lg"
+              className="w-full max-w-md space-y-4 border border-blue-200 rounded-lg p-6 shadow-md bg-white transition-all hover:border-blue-400 hover:shadow-lg"
             >
               <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-3 text-center overflow-hidden rounded-lg">
-                  <h2 className="text-base font-semibold text-white">
-                     Registrar Informação
-                  </h2>
+                <h2 className="text-base font-semibold text-white">
+                  Registrar Informação
+                </h2>
               </div>
 
               <input
-                type="name"
+                type="text"
                 name="name"
                 placeholder="Adicione o nome"
                 autoComplete="off"
@@ -91,11 +103,11 @@ export default function RegisterBaby() {
                 className="w-full border rounded-md p-2"
                 required
               />
-                
+
               <input
                 type="date"
-                name="date"
-                value={form.date}
+                name="birth_date"
+                value={form.birth_date}
                 onChange={handleChange}
                 className="w-full border rounded-md p-2"
                 required
