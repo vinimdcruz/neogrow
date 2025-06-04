@@ -10,7 +10,7 @@ import Link from "next/link";
 interface babyProps {
   id: number;
   name: string;
-  date: string;
+  birth_date: string;
   weight: number;
   height: number;
   head_circumference: number;
@@ -46,31 +46,7 @@ export default function BabyList() {
   const isNotEmpty = (value: string | number | undefined) =>
     value !== "" && value !== "0" && value !== undefined;
 
-  const handleDelete = async (id: number) => {
-    const confirmDelete = confirm("Tem certeza que deseja excluir este registro?");
-    if (!confirmDelete) return;
-
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`http://44.203.139.11/api/babies/${id}/`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (res.ok) {
-        setBabies((prev) => prev.filter((baby) => baby.id !== id));
-        alert("Registro excluído com sucesso.");
-      } else {
-        alert("Erro ao excluir o registro.");
-      }
-    } catch (error) {
-      console.error("Erro ao excluir bebê:", error);
-      alert("Erro ao excluir.");
-    }
-  };
-
+  
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -98,20 +74,13 @@ export default function BabyList() {
               >
                 <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4 flex justify-between items-center">
                   <h2 className="text-base font-semibold text-white">{baby.name}</h2>
-                  <button
-                    onClick={() => handleDelete(baby.id)}
-                    title="Excluir"
-                    className="text-white hover:text-red-300 transition"
-                  >
-                    <FiTrash className="w-5 h-5" />
-                  </button>
                 </div>
 
                 <div className="p-4">
-                  {isNotEmpty(baby.date) && (
+                  {isNotEmpty(baby.birth_date) && (
                     <div className="mb-2 text-gray-700 text-sm">
                       <p className="font-bold mb-1">Nascimento:</p>
-                      <p>{new Date(baby.date).toLocaleDateString("pt-BR")}</p>
+                      <p>{new Date(baby.birth_date).toLocaleDateString("pt-BR")}</p>
                     </div>
                   )}
 
