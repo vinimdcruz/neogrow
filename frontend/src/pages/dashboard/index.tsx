@@ -1,17 +1,31 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiPlus, FiUsers, FiHome } from "react-icons/fi";
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { Sidebar } from "../../components/sidebar/Sidebar";
-import { useAuth } from "@/context/authContext"; // ou '../../context/authContext'
+import { useAuth } from "../../context/authContext";
+
+type DashboardData = {
+  total: number;
+  mes: number;
+  pendentes: number;
+  ultimaAtualizacao: string;
+};
 
 export default function Dashboard() {
   const { signed, loading } = useAuth();
   const router = useRouter();
+
+  const [dashboardData, setDashboardData] = useState<DashboardData>({
+    total: 0,
+    mes: 0,
+    pendentes: 0,
+    ultimaAtualizacao: "",
+  });
 
   // Redireciona para Home se não estiver logado
   useEffect(() => {
@@ -20,13 +34,30 @@ export default function Dashboard() {
     }
   }, [loading, signed, router]);
 
-  // Enquanto carrega ou não está logado não renderiza a página
+  // Carrega os dados do dashboard
+  useEffect(() => {
+    if (!loading && signed) {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/`)
+        .then((res) => res.json())
+        .then((data) => {
+          setDashboardData({
+            total: data.total,
+            mes: data.mes,
+            pendentes: data.pendentes,
+            ultimaAtualizacao: data.ultimaAtualizacao,
+          });
+        })
+        .catch((err) => {
+          console.error("Erro ao carregar dados do dashboard:", err);
+        });
+    }
+  }, [loading, signed]);
+
   if (loading || !signed) return null;
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-
       <div className="flex">
         <Sidebar />
         <main className="flex-1 p-4">
@@ -37,7 +68,7 @@ export default function Dashboard() {
 
             <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:shadow-md transition-all mb-6">
               <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                Bem-vindo!  
+                Bem-vindo!
               </h2>
               <p className="text-sm text-gray-500 mb-4">
                 Utilize o painel para gerenciar os dados e acompanhar as informações registradas.
@@ -94,19 +125,27 @@ export default function Dashboard() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
                   <p className="text-sm text-gray-500 mb-1">Total de Registros</p>
-                  <p className="text-2xl font-bold text-blue-600">0</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    {dashboardData.total}
+                  </p>
                 </div>
                 <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
                   <p className="text-sm text-gray-500 mb-1">Este mês</p>
-                  <p className="text-2xl font-bold text-blue-600">0</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    {dashboardData.mes}
+                  </p>
                 </div>
                 <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
                   <p className="text-sm text-gray-500 mb-1">Registros Pendentes</p>
-                  <p className="text-2xl font-bold text-blue-600">0</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    {dashboardData.pendentes}
+                  </p>
                 </div>
                 <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
                   <p className="text-sm text-gray-500 mb-1">Última Atualização</p>
-                  <p className="text-2xl font-bold text-blue-600">24/05/2025</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    {dashboardData.ultimaAtualizacao}
+                  </p>
                 </div>
               </div>
             </div>
