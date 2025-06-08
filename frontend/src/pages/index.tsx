@@ -4,6 +4,7 @@ import { Header } from "@/components/header/Header"
 import { Container } from "@/components/container/Container"
 import { FaBaby, FaGithub, FaChartLine, FaBell, FaChartBar } from "react-icons/fa"
 import { Footer } from "@/components/footer/Footer"
+import { CookieBanner } from "../components/cookiebanner/CookieBanner"
 
 export default function Main() {
   return (
@@ -128,7 +129,7 @@ export default function Main() {
           <section className="w-full mt-32 py-16 px-8 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 text-white text-center">
             <h2 className="text-3xl font-bold mb-6">Acompanhe o crescimento do seu bebê hoje 👶</h2>
             <p className="text-xl max-w-2xl mx-auto mb-8 text-blue-100">
-              Acesse nossa API e integre com sua aplicação para melhor acompanhamento.
+              Acesse nossa aplicação para melhor acompanhamento. Caso você seja um desenvolvedor, sinta-se à vontade para contribuir com o projeto no GitHub.
             </p>
             <div className="hover:scale-105">
               <a
@@ -145,6 +146,7 @@ export default function Main() {
         </main>
       </Container>
       <Footer />
+      <CookieBanner />
     </div>
   )
 }
