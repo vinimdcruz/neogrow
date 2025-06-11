@@ -166,9 +166,6 @@ export default function Login() {
             <h3 className="font-semibold text-gray-800 mb-3 text-base text-center">
               📌 Aviso Legal e Responsabilidade
             </h3>
-            <p className="text-sm text-center text-gray-600 mb-4">
-              Ao utilizar esta aplicação, você concorda com todos os termos abaixo:
-            </p>
             <ul className="list-disc list-inside space-y-2 text-sm text-justify">
               <li>
                 Esta aplicação é de código aberto (open source), desenvolvida exclusivamente para fins educacionais e experimentais, <b>sem fins lucrativos</b>.

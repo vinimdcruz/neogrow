@@ -8,6 +8,7 @@ import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { Sidebar } from "../../components/sidebar/Sidebar";
 import { useAuth } from "../../context/authContext";
+import toast from "react-hot-toast";
 
 type DashboardData = {
   total: number;
@@ -34,24 +35,53 @@ export default function Dashboard() {
     }
   }, [loading, signed, router]);
 
-  // Carrega os dados do dashboard
+  // Carrega os dados do dashboard com autenticação
   useEffect(() => {
-    if (!loading && signed) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/`)
-        .then((res) => res.json())
-        .then((data) => {
-          setDashboardData({
-            total: data.total,
-            mes: data.mes,
-            pendentes: data.pendentes,
-            ultimaAtualizacao: data.ultimaAtualizacao,
-          });
-        })
-        .catch((err) => {
-          console.error("Erro ao carregar dados do dashboard:", err);
+    const fetchDashboardData = async () => {
+      const token = localStorage.getItem("token") || localStorage.getItem("access_token");
+
+      if (!token) {
+        toast.error("Sessão expirada. Faça login novamente.");
+        router.push("/");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         });
+
+        if (!res.ok) {
+          if (res.status === 401) {
+            toast.error("Sessão inválida ou expirada.");
+            router.push("/");
+          } else {
+            throw new Error("Erro inesperado ao buscar dados.");
+          }
+          return;
+        }
+
+        const data = await res.json();
+
+        setDashboardData({
+          total: data.total || 0,
+          mes: data.mes || 0,
+          pendentes: data.pendentes || 0,
+          ultimaAtualizacao: data.ultimaAtualizacao || "—",
+        });
+      } catch (err) {
+        console.error("Erro ao carregar dados do dashboard:", err);
+        toast.error("Erro ao carregar dados.");
+      }
+    };
+
+    if (!loading && signed) {
+      fetchDashboardData();
     }
-  }, [loading, signed]);
+  }, [loading, signed, router]);
 
   if (loading || !signed) return null;
 

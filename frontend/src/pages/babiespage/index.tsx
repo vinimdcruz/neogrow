@@ -4,6 +4,7 @@ import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { useState, useEffect, useRef } from "react";
 import { FiEdit, FiArrowLeft, FiTrash } from "react-icons/fi";
+import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -50,8 +51,9 @@ export default function BabyList() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
+      <TermsOfUseNotice />
       <Container>
-        <section className="h-full bg-white p-4 md:p-6 overflow-auto">
+        <section className="h-full p-4 md:p-6 overflow-auto">
           <button
             onClick={() => router.push("/dashboard")}
             className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
