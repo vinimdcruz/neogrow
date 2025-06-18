@@ -2,8 +2,8 @@
 
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
-import { useState, useEffect, useRef } from "react";
-import { FiEdit, FiArrowLeft, FiTrash } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiEdit, FiArrowLeft } from "react-icons/fi";
 import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -12,42 +12,62 @@ interface babyProps {
   id: number;
   name: string;
   birth_date: string;
-  weight: number;
-  height: number;
-  head_circumference: number;
+  weight?: number;
+  height?: number;
+  head_circumference?: number;
 }
 
 export default function BabyList() {
   const [babies, setBabies] = useState<babyProps[]>([]);
-  const hasFetched = useRef(false);
   const router = useRouter();
 
   useEffect(() => {
-    if (hasFetched.current) return;
-    hasFetched.current = true;
-
-    async function fetchBabies() {
+    async function fetchBabiesWithData() {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const resBabies = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
-        const data = await res.json();
-        setBabies(data);
+        const babiesData = await resBabies.json();
+
+        const babiesWithDetails = await Promise.all(
+          babiesData.map(async (baby: babyProps) => {
+            const resDetails = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/${baby.id}/data/`, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (resDetails.ok) {
+              const details = await resDetails.json();
+              // Pega o registro mais recente, ou vazio se não houver
+              const latest = details.length ? details[details.length - 1] : {};
+              return {
+                ...baby,
+                weight: latest.weight,
+                height: latest.height,
+                head_circumference: latest.head_circumference,
+              };
+            }
+            return baby;
+          })
+        );
+
+        setBabies(babiesWithDetails);
       } catch (error) {
         console.error("Erro ao buscar dados do bebê:", error);
       }
     }
 
-    fetchBabies();
+    fetchBabiesWithData();
   }, []);
 
-  const isNotEmpty = (value: string | number | undefined) =>
-    value !== "" && value !== "0" && value !== undefined;
+  const hasData = (baby: babyProps) => {
+    return (
+      baby.weight !== undefined && baby.weight !== null &&
+      baby.height !== undefined && baby.height !== null &&
+      baby.head_circumference !== undefined && baby.head_circumference !== null
+    );
+  };
 
-  
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -79,40 +99,46 @@ export default function BabyList() {
                 </div>
 
                 <div className="p-4">
-                  {isNotEmpty(baby.birth_date) && (
+                  {baby.birth_date && (
                     <div className="mb-2 text-gray-700 text-sm">
                       <p className="font-bold mb-1">Nascimento:</p>
                       <p>{new Date(baby.birth_date).toLocaleDateString("pt-BR")}</p>
                     </div>
                   )}
 
-                  {isNotEmpty(baby.weight) && (
+                  {baby.weight !== undefined && baby.weight !== null && (
                     <div className="mb-2 text-gray-700 text-sm">
                       <p className="font-bold mb-1">Peso (kg):</p>
                       <p>{baby.weight}</p>
                     </div>
                   )}
 
-                  {isNotEmpty(baby.height) && (
+                  {baby.height !== undefined && baby.height !== null && (
                     <div className="mb-2 text-gray-700 text-sm">
                       <p className="font-bold mb-1">Altura (cm):</p>
                       <p>{baby.height}</p>
                     </div>
                   )}
 
-                  {isNotEmpty(baby.head_circumference) && (
+                  {baby.head_circumference !== undefined && baby.head_circumference !== null && (
                     <div className="mb-2 text-gray-700 text-sm">
-                      <p className="font-bold mb-1">
-                        Circunferência da Cabeça (cm):
-                      </p>
+                      <p className="font-bold mb-1">Circunferência da Cabeça (cm):</p>
                       <p>{baby.head_circumference}</p>
                     </div>
                   )}
+                  
 
-                  <button className="w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-all duration-300">
+                  <button
+                    className={`w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm cursor-pointer transition-all duration-300
+                      ${hasData(baby) ? "cursor-not-allowed text-gray-400 border-gray-300" : "hover:text-blue-600 border"}
+                    `}
+                    disabled={hasData(baby)}
+                  >
                     <Link
-                      href={`/registerdetails/${baby.name}`}
+                      href={`/registerdetails/${baby.id}/data`}
                       className="flex items-center w-full justify-center"
+                      tabIndex={hasData(baby) ? -1 : 0}
+                      onClick={e => hasData(baby) && e.preventDefault()}
                     >
                       <FiEdit className="h-4 w-4 mr-2" />
                       Adicionar Informações
