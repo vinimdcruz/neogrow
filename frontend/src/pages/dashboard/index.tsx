@@ -7,9 +7,11 @@ import { FiPlus, FiUsers, FiHome } from "react-icons/fi";
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { Sidebar } from "../../components/sidebar/Sidebar";
+import { ScrollUp } from "../../components/scrollup/ScrollUp";
 import { useAuth } from "../../context/authContext";
 import toast from "react-hot-toast";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import { DevelopmentBadge } from "@/components/developmentbadge/DevelopmentBadge";
 
 type DashboardData = {
   total: number;
@@ -138,6 +140,7 @@ export default function Dashboard() {
         <Sidebar />
         <main className="flex-1 p-4">
           <Container>
+            <DevelopmentBadge />
             <h1 className="text-3xl font-bold text-gray-800 mb-6 mt-6">
               Painel de Controle
             </h1>
@@ -206,8 +209,8 @@ export default function Dashboard() {
                 </ResponsiveContainer>
               </div>
             </div>
-
           </Container>
+        <ScrollUp />
         </main>
       </div>
     </div>

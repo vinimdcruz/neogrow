@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
+import toast, { Toaster } from 'react-hot-toast';
 
 interface BabyFormProps {
   name: string;
@@ -59,7 +60,7 @@ export default function RegisterBaby() {
       console.log("Corpo da resposta:", data);
 
       if (res.ok) {
-        alert("Registro salvo com sucesso!");
+        toast.success("Registro salvo com sucesso!");
         router.push("/babiespage");
       } else {
         alert("Erro ao registrar: " + (data?.detail || "Erro desconhecido."));
@@ -75,7 +76,9 @@ export default function RegisterBaby() {
       <Header />
       <TermsOfUseNotice />
       <Container>
-        <div className="h-screen p-4 md:p-6 flex flex-col">
+        <Toaster position="top-right" containerStyle={{ zIndex: 52 }}/>
+
+        <div className="p-4 md:p-6 flex flex-col">
           <button
             onClick={() => router.push("/dashboard")}
             className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"

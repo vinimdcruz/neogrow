@@ -5,12 +5,15 @@ import { Container } from "@/components/container/Container"
 import { FaBaby, FaGithub, FaChartLine, FaBell, FaChartBar } from "react-icons/fa"
 import { Footer } from "@/components/footer/Footer"
 import { CookieBanner } from "../components/cookiebanner/CookieBanner"
+import { ScrollUp } from "@/components/scrollup/ScrollUp"
+import { DevelopmentBadge } from "@/components/developmentbadge/DevelopmentBadge";
 
 export default function Main() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
       <Container>
+      <DevelopmentBadge />
         <main className="flex-1 pt-32 pb-24">
           {/* Hero Section */}
           <section className="w-full mb-32">
@@ -22,7 +25,7 @@ export default function Main() {
                   </h2>
                 </div>
                 <p className="text-xl text-gray-600 max-w-xl text-center md:text-left">
-                  Backend com FastAPI para acompanhamento do crescimento do seu bebê com insights personalizados.
+                  Backend com FastAPI para ajudar os pais no acompanhamento do crescimento de seu bebê com insights personalizados.
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center items-center md:justify-start md:items-start">
                   <a
@@ -58,7 +61,7 @@ export default function Main() {
                     {
                       icon: <FaBell className="h-6 w-6 text-blue-600" />,
                       title: "Alertas",
-                      desc: "Baseados em métricas de saúde",
+                      desc: "Baseados em métricas vigentes",
                     },
                   ].map((item, index) => (
                     <div key={index} className="flex items-center gap-5 p-4 rounded-xl hover:bg-blue-50">
@@ -145,6 +148,7 @@ export default function Main() {
           </section>
         </main>
       </Container>
+      <ScrollUp />
       <Footer />
       <CookieBanner />
     </div>

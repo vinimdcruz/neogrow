@@ -14,6 +14,7 @@ import { FaLock } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import { useAuth } from '../../context/authContext';
 import toast, { Toaster } from 'react-hot-toast';
+import { DevelopmentBadge } from "@/components/developmentbadge/DevelopmentBadge";
 
 // Validação do formulário com Zod
 const schema = z.object({
@@ -93,6 +94,7 @@ export default function Login() {
   return (
     <Container>
       <Toaster position="top-right" />
+      <DevelopmentBadge />
 
       <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1">
         <Link href="/">
@@ -163,27 +165,28 @@ export default function Login() {
 
           {/* Aviso legal visual com texto justificado */}
           <div className="bg-gray-50 border border-gray-200 text-gray-700 rounded-lg text-sm px-5 py-6 mt-4 max-w-xl shadow-inner leading-relaxed">
-            <h3 className="font-semibold text-gray-800 mb-3 text-base text-center">
-              📌 Aviso Legal e Responsabilidade
-            </h3>
-            <ul className="list-disc list-inside space-y-2 text-sm text-justify">
-              <li>
-                Esta aplicação é de código aberto (open source), desenvolvida exclusivamente para fins educacionais e experimentais, <b>sem fins lucrativos</b>.
-              </li>
-              <li>
-                Todo dado inserido é de responsabilidade do próprio usuário, sendo seu uso voluntário e consciente.
-              </li>
-              <li>
-                Nenhum dado sensível ou pessoal é armazenado sem o consentimento explícito do usuário, conforme exigido pela Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD). Você só poderá utilizar o aplicativo se aceitar estes termos.
-              </li>
-              <li>
-                Os dados eventualmente tratados são utilizados apenas para fins funcionais da aplicação, sem fins lucrativos, compartilhamento ou comercialização.
-              </li>
-              <li>
-                Os desenvolvedores não assumem qualquer responsabilidade legal por usos indevidos, integrações externas ou consequências decorrentes da manipulação indevida dos dados pelo usuário.
-              </li>
-            </ul>
-          </div>
+  <h3 className="font-semibold text-gray-800 mb-3 text-base text-center">
+    📌 Aviso Legal e Responsabilidade
+  </h3>
+  <ul className="list-disc list-inside space-y-2 text-sm text-justify">
+    <li>
+      Esta aplicação é de código aberto e foi desenvolvida exclusivamente para fins educacionais, sem fins lucrativos, e sem qualquer objetivo de comercialização ou compartilhamento de dados.
+    </li>
+    <li>
+      O uso da aplicação é voluntário e os dados inseridos são de responsabilidade do próprio usuário.
+    </li>
+    <li>
+      Nenhuma informação pessoal ou sensível será armazenada ou utilizada sem o consentimento claro e informado do usuário, conforme previsto na Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).
+    </li>
+    <li>
+      Os desenvolvedores não assumem responsabilidade por qualquer uso indevido, malicioso ou não autorizado das informações inseridas na aplicação, nem por integrações externas realizadas por terceiros.
+    </li>
+    <li>
+      Ao continuar utilizando o aplicativo, o usuário declara estar ciente e de acordo com os termos aqui descritos.
+    </li>
+  </ul>
+</div>
+
 
           <button
             type="submit"
