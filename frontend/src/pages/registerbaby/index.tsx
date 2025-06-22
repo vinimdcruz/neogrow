@@ -41,7 +41,7 @@ export default function RegisterBaby() {
         return;
       }
 
-      const res = await fetch("http://44.203.139.11/api/babies/", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
