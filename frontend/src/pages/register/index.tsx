@@ -13,6 +13,7 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { FiMail } from 'react-icons/fi';
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from 'react-hot-toast';
+import { DevelopmentBadge } from "@/components/developmentbadge/DevelopmentBadge";
 
 // Validação com Zod
 const schema = z.object({
@@ -77,6 +78,7 @@ export default function Register() {
 
   return (
     <Container>
+      <DevelopmentBadge />
       <Toaster position="top-right" />
 
       <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1">
