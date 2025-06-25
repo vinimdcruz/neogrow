@@ -127,22 +127,30 @@ export default function BabyList() {
                     </div>
                   )}
                   
-
                   <button
-                    className={`w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm cursor-pointer transition-all duration-300
-                      ${hasData(baby) ? "cursor-not-allowed text-gray-400 border-gray-300" : "hover:text-blue-600 border"}
-                    `}
                     disabled={hasData(baby)}
+                    className={`w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm transition-all duration-300
+                      ${hasData(baby) 
+                        ? "cursor-not-allowed text-gray-400 border-gray-300" 
+                        : "hover:text-blue-600 border cursor-pointer"}
+                    `}
                   >
-                    <Link
-                      href={`/registerdetails/${baby.id}/data`}
-                      className="flex items-center w-full justify-center"
-                      tabIndex={hasData(baby) ? -1 : 0}
-                      onClick={e => hasData(baby) && e.preventDefault()}
-                    >
-                      <FiEdit className="h-4 w-4 mr-2" />
-                      Adicionar Informações
-                    </Link>
+                    {hasData(baby) ? (
+                      // Desativado: Link não funciona
+                      <div className="flex items-center w-full justify-center">
+                        <FiEdit className="h-4 w-4 mr-2" />
+                        Adicionar Informações
+                      </div>
+                    ) : (
+                      // Ativo: Link funciona
+                      <Link
+                        href={`/registerdetails/${baby.id}/data`}
+                        className="flex items-center w-full justify-center"
+                      >
+                        <FiEdit className="h-4 w-4 mr-2" />
+                        Adicionar Informações
+                      </Link>
+                    )}
                   </button>
                 </div>
               </div>
@@ -153,3 +161,4 @@ export default function BabyList() {
     </div>
   );
 }
+
