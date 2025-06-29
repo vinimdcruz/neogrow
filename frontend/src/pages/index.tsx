@@ -16,8 +16,8 @@ export default function Main() {
       <DevelopmentBadge />
         <main className="flex-1 pt-32 pb-24">
           {/* Hero Section */}
-          <section className="w-full mb-32">
-            <div className="grid gap-12 lg:grid-cols-2 items-center ">
+          <section className="w-full mb-2 md:mb-15">
+            <div className="grid gap-12 lg:grid-cols-2 items-center">
               <div className="space-y-8">
                 <div className="space-y-2">
                   <h2 className="text-3xl md:text-3xl text-center md:text-left font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
@@ -39,7 +39,7 @@ export default function Main() {
                   </a>
                   <a
                     href="#features"
-                    className="inline-flex items-center rounded-lg border-2 border-blue-500 bg-transparent hover:bg-blue-50 px-8 py-3 text-blue-600"
+                    className="inline-flex items-center rounded-lg border-1 border-blue-500 bg-transparent hover:bg-blue-50 px-9 py-3 text-blue-600"
                   >
                     Explorar
                   </a>
@@ -81,7 +81,7 @@ export default function Main() {
 
           {/* Features Section */}
           <section id="features" className="w-full pt-16">
-            <div className="text-center mb-16">
+            <div className="text-center mb-18">
               <span className="inline-block rounded-full bg-blue-100 px-4 py-1.5 text-sm text-blue-700 font-medium mb-4">
                 Recursos
               </span>
@@ -129,7 +129,7 @@ export default function Main() {
           </section>
 
           {/* CTA Section */}
-          <section className="w-full mt-32 py-16 px-8 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 text-white text-center">
+          <section className="w-full mt-18 md:mt-25 py-16 px-8 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 text-white text-center">
             <h2 className="text-3xl font-bold mb-6">Acompanhe o crescimento do seu bebê hoje 👶</h2>
             <p className="text-xl max-w-2xl mx-auto mb-8 text-blue-100">
               Acesse nossa aplicação para melhor acompanhamento. Caso você seja um desenvolvedor, sinta-se à vontade para contribuir com o projeto no GitHub.
@@ -142,7 +142,7 @@ export default function Main() {
                 rel="noreferrer"
               >
                 <FaGithub className="h-5 w-5 mr-2" />
-                Ver no GitHub
+                Acessar GitHub
               </a>
             </div>
           </section>

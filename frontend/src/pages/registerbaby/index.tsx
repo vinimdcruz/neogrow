@@ -79,15 +79,17 @@ export default function RegisterBaby() {
         <Toaster position="top-right" containerStyle={{ zIndex: 52 }}/>
 
         <div className="p-4 md:p-6 flex flex-col">
-          <button
-            onClick={() => router.push("/dashboard")}
-            className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
-          >
-            <FiArrowLeft className="h-4 w-4 mr-2" />
-            Voltar
-          </button>
+          <div className="flex mt-3 justify-center md:justify-start">
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-40 mt-5 mb-2 md:px-8 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
+            >
+              <FiArrowLeft className="h-4 w-4 mr-2" />
+              Voltar
+            </button>
+          </div>
 
-          <div className="mt-30 flex items-center justify-center">
+          <div className="mt-10 flex items-center justify-center">
             <form
               onSubmit={handleSubmit}
               className="w-full max-w-lg space-y-6 bg-white border border-blue-200 rounded-xl p-8 shadow-md hover:shadow-lg transition"
@@ -97,12 +99,12 @@ export default function RegisterBaby() {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="name" className="text-sm font-medium text-gray-700">Nome ou apelido</label>
+                <label htmlFor="name" className="text-sm font-medium text-gray-700">Apelido</label>
                 <input
                   id="name"
                   type="text"
                   name="name"
-                  placeholder="Digite o nome ou apelido"
+                  placeholder="Digite o apelido"
                   value={form.name}
                   onChange={handleChange}
                   className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
