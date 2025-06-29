@@ -96,7 +96,7 @@ export default function Login() {
       <Toaster position="top-right" />
       <DevelopmentBadge />
 
-      <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1">
+      <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1 mt-5 md:mt-0">
         <Link href="/">
           <Image
             src={minhaImagem}
@@ -137,7 +137,7 @@ export default function Login() {
             />
           </div>
 
-          {/* Consentimento LGPD com estilo aprimorado */}
+          {/* Consentimento LGPD */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4 shadow-sm">
             <div className="flex items-start gap-3">
               <input
@@ -163,30 +163,29 @@ export default function Login() {
             )}
           </div>
 
-          {/* Aviso legal visual com texto justificado */}
+          {/* Aviso legal */}
           <div className="bg-gray-50 border border-gray-200 text-gray-700 rounded-lg text-sm px-5 py-6 mt-4 max-w-xl shadow-inner leading-relaxed">
-  <h3 className="font-semibold text-gray-800 mb-3 text-base text-center">
-    📌 Aviso Legal e Responsabilidade
-  </h3>
-  <ul className="list-disc list-inside space-y-2 text-sm text-justify">
-    <li>
-      Esta aplicação é de código aberto e foi desenvolvida exclusivamente para fins educacionais, sem fins lucrativos, e sem qualquer objetivo de comercialização ou compartilhamento de dados.
-    </li>
-    <li>
-      O uso da aplicação é voluntário e os dados inseridos são de responsabilidade do próprio usuário.
-    </li>
-    <li>
-      Nenhuma informação pessoal ou sensível será armazenada ou utilizada sem o consentimento claro e informado do usuário, conforme previsto na Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).
-    </li>
-    <li>
-      Os desenvolvedores não assumem responsabilidade por qualquer uso indevido, malicioso ou não autorizado das informações inseridas na aplicação, nem por integrações externas realizadas por terceiros.
-    </li>
-    <li>
-      Ao continuar utilizando o aplicativo, o usuário declara estar ciente e de acordo com os termos aqui descritos.
-    </li>
-  </ul>
-</div>
-
+            <h3 className="font-semibold text-gray-800 mb-3 text-base text-center">
+              📌 Aviso Legal e Responsabilidade
+            </h3>
+            <ul className="list-disc list-inside space-y-2 text-sm text-justify">
+              <li>
+                Esta aplicação é de código aberto e foi desenvolvida exclusivamente para fins educacionais, sem fins lucrativos, e sem qualquer objetivo de comercialização ou compartilhamento de dados.
+              </li>
+              <li>
+                O uso da aplicação é voluntário e os dados inseridos são de responsabilidade do próprio usuário.
+              </li>
+              <li>
+                Nenhuma informação pessoal ou sensível será armazenada ou utilizada sem o consentimento claro e informado do usuário, conforme previsto na Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).
+              </li>
+              <li>
+                Os desenvolvedores não assumem responsabilidade por qualquer uso indevido, malicioso ou não autorizado das informações inseridas na aplicação, nem por integrações externas realizadas por terceiros.
+              </li>
+              <li>
+                Ao continuar utilizando o aplicativo, o usuário declara estar ciente e de acordo com os termos aqui descritos.
+              </li>
+            </ul>
+          </div>
 
           <button
             type="submit"
@@ -199,7 +198,7 @@ export default function Login() {
 
         <Link
           href="/register"
-          className="cursor-pointer text-sm text-blue-600 hover:underline transition-colors duration-300"
+          className="cursor-pointer text-sm text-blue-600 hover:underline transition-colors duration-300 mb-8 md:mb-0"
         >
           Não tem uma conta? Cadastre-se
         </Link>

@@ -15,6 +15,7 @@ interface babyProps {
   weight?: number;
   height?: number;
   head_circumference?: number;
+  date: string;
 }
 
 export default function BabyList() {
@@ -38,7 +39,6 @@ export default function BabyList() {
 
             if (resDetails.ok) {
               const details = await resDetails.json();
-              // Pega o registro mais recente, ou vazio se não houver
               const latest = details.length ? details[details.length - 1] : {};
               return {
                 ...baby,
@@ -73,18 +73,20 @@ export default function BabyList() {
       <Header />
       <TermsOfUseNotice />
       <Container>
-        <section className="h-full p-4 md:p-6 overflow-auto">
-          <button
-            onClick={() => router.push("/dashboard")}
-            className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
-          >
-            <FiArrowLeft className="h-4 w-4 mr-2" />
-            Voltar
-          </button>
+        <section className="h-full p-0 md:p-6 overflow-auto">
+          <div className="flex mt-1 justify-center md:justify-start">
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-40 mt-5 mb-1 md:px-8 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
+            >
+              <FiArrowLeft className="h-4 w-4 mr-2" />
+              Voltar
+            </button>
+          </div>
 
-          <header className="mb-8 text-center">
+          <header className="mb-9 text-center">
             <h1 className="text-xl font-bold text-gray-600">
-              Minha Lista de Informações
+              Itens registrados 📝
             </h1>
           </header>
 
@@ -127,12 +129,13 @@ export default function BabyList() {
                     </div>
                   )}
                   
+                  <div className="flex flex-col justify-between"></div>
                   <button
                     disabled={hasData(baby)}
                     className={`w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm transition-all duration-300
                       ${hasData(baby) 
                         ? "cursor-not-allowed text-gray-400 border-gray-300" 
-                        : "hover:text-blue-600 border cursor-pointer"}
+                        : "hover:text-blue-600 border cursor-pointer bg-green-100"}
                     `}
                   >
                     {hasData(baby) ? (
