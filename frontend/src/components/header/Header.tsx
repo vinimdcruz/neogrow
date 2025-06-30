@@ -79,7 +79,7 @@ export function Header() {
               <Link href="/login" className="w-full sm:w-auto">
                 <button className="w-full sm:w-auto inline-flex h-9 items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm cursor-pointer hover:text-blue-600 transition-colors duration-300">
                   <FaLock className="h-4 w-4 mr-2" />
-                  Login
+                  Entrar
                 </button>
               </Link>
 

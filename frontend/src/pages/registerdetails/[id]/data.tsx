@@ -102,13 +102,15 @@ export default function RegisterDetails() {
         <CookieBanner />
         <Container>
           <div className="h-full p-4 md:p-6 flex flex-col">
+            <div className="flex mt-3 justify-center md:justify-start">
             <button
               onClick={() => router.push("/babiespage")}
-              className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-6 py-2 text-sm font-medium shadow-sm mb-8 cursor-pointer hover:text-blue-600 transition-colors duration-300"
+              className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-40 md:px-8 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
             >
               <FiArrowLeft className="h-4 w-4 mr-2" />
               Voltar
             </button>
+          </div>
 
             <div className="flex flex-1 items-center justify-center">
               <form
