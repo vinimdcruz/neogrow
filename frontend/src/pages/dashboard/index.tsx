@@ -140,7 +140,6 @@ export default function Dashboard() {
         <Sidebar />
         <main className="flex-1 p-4">
           <Container>
-            <DevelopmentBadge />
             <h1 className="text-3xl font-bold text-gray-800 mb-6 mt-6">
               Painel de Controle
             </h1>

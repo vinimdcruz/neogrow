@@ -20,14 +20,14 @@ export default function Main() {
             <div className="grid gap-12 lg:grid-cols-2 items-center">
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <h2 className="text-3xl md:text-3xl text-center md:text-left font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
+                  <h2 className="text-3xl md:text-3xl text-center md:text-center font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
                     Neo<span className="text-green-600">Grow</span> API
                   </h2>
                 </div>
-                <p className="text-xl text-gray-600 max-w-xl text-center md:text-left">
+                <p className="text-xl text-gray-600 max-w-xl text-justify items-center md:items-center mx-auto">
                   Backend com FastAPI para ajudar os pais no acompanhamento do crescimento de seu bebê com insights personalizados.
                 </p>
-                <div className="flex flex-wrap gap-4 justify-center items-center md:justify-start md:items-start">
+                <div className="flex flex-wrap gap-4 justify-center items-center md:justify-center md:items-center">
                   <a
                     href="https://github.com/vinimdcruz/neogrow"
                     target="_blank"
@@ -47,7 +47,7 @@ export default function Main() {
               </div>
 
               <div className="rounded-2xl border border-blue-400 p-8 shadow-2xl bg-white backdrop-blur-sm hover:translate-y-[-5px] text-center md:text-left">
-                <h3 className="text-2xl font-bold mb-4">Acompanhamento Inteligente</h3>
+                <h3 className="text-2xl font-bold mb-4">Acompanhamento Inteligente ✨</h3>
                 <p className="text-gray-600 mb-8">
                   Monitore o crescimento com precisão e receba insights baseados em métricas de crescimento.
                 </p>
@@ -80,14 +80,14 @@ export default function Main() {
           </section>
 
           {/* Features Section */}
-          <section id="features" className="w-full pt-16">
+          <section id="features" className="w-full pt-7">
             <div className="text-center mb-18">
               <span className="inline-block rounded-full bg-blue-100 px-4 py-1.5 text-sm text-blue-700 font-medium mb-4">
                 Recursos
               </span>
               <h2 className="text-2xl font-bold mb-4">Funcionalidades</h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Ferramentas para acompanhar o desenvolvimento do seu bebê
+                Ferramentas para acompanhar o desenvolvimento de forma fácil e intuitiva.
               </p>
             </div>
 
