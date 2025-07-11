@@ -55,5 +55,8 @@ jobs:
         echo "Running new Docker container..."
         docker run -d -p 80:8000 --env-file backend/.env --name neogrow-api neogrow-api
 
+        echo "Running Alembic migrations..."
+        docker exec neogrow-api alembic upgrade head
+
         echo "Deployment finished."
         EOF
