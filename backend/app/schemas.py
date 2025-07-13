@@ -14,6 +14,9 @@ class BabyDataCreate(BabyDataBase):
 class BabyData(BabyDataBase):
     id: int
     baby_id: int
+    created_at: Optional[date]
+    updated_at: Optional[date]
+    deleted_at: Optional[date]
 
     class Config:
         orm_mode = True
@@ -28,6 +31,9 @@ class BabyCreate(BabyBase):
 class Baby(BabyBase):
     id: int
     user_id: int
+    created_at: Optional[date]
+    updated_at: Optional[date]
+    deleted_at: Optional[date]
     growth_data: List[BabyData] = []
 
     class Config:
@@ -43,6 +49,9 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
+    created_at: Optional[date]
+    updated_at: Optional[date]
+    deleted_at: Optional[date]
     babies: List[Baby] = []
 
     class Config:
