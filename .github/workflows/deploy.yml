@@ -16,12 +16,12 @@ jobs:
     - name: Check if backend folder changed
       id: check_changes
       run: |
-        git fetch origin main --depth=2 # Fetch at least last 2 commits to compare HEAD^ with HEAD
-        if git diff --quiet HEAD^ HEAD -- backend/ backend/migrations/ backend/migrations/versions/; then
-          echo "No changes in backend or migrations."
+        git fetch origin main
+        if git diff --quiet origin/main -- backend/; then
+          echo "No changes in backend."
           echo "changed=false" >> $GITHUB_OUTPUT
         else
-          echo "Changes detected in backend or migrations."
+          echo "Changes detected in backend."
           echo "changed=true" >> $GITHUB_OUTPUT
         fi
 
