@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import date
+from datetime import date, datetime
 from typing import List, Optional
 
 class BabyDataBase(BaseModel):
@@ -11,12 +11,13 @@ class BabyDataBase(BaseModel):
 class BabyDataCreate(BabyDataBase):
     pass
 
+
 class BabyData(BabyDataBase):
     id: int
     baby_id: int
-    created_at: Optional[date]
-    updated_at: Optional[date]
-    deleted_at: Optional[date]
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+    deleted_at: Optional[datetime]
 
     class Config:
         orm_mode = True
@@ -28,12 +29,13 @@ class BabyBase(BaseModel):
 class BabyCreate(BabyBase):
     pass
 
+
 class Baby(BabyBase):
     id: int
     user_id: int
-    created_at: Optional[date]
-    updated_at: Optional[date]
-    deleted_at: Optional[date]
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+    deleted_at: Optional[datetime]
     growth_data: List[BabyData] = []
 
     class Config:
@@ -46,12 +48,13 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
+
 class User(UserBase):
     id: int
     is_active: bool
-    created_at: Optional[date]
-    updated_at: Optional[date]
-    deleted_at: Optional[date]
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+    deleted_at: Optional[datetime]
     babies: List[Baby] = []
 
     class Config:
