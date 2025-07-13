@@ -16,7 +16,7 @@ interface babyProps {
   weight?: number;
   height?: number;
   head_circumference?: number;
-  date: string;
+  date?: string; 
 }
 
 export default function BabyList() {
@@ -31,6 +31,7 @@ export default function BabyList() {
           headers: { Authorization: `Bearer ${token}` },
         });
         const babiesData = await resBabies.json();
+        console.log("Dados recebidos da API:", babiesData);
 
         const babiesWithDetails = await Promise.all(
           babiesData.map(async (baby: babyProps) => {
@@ -41,11 +42,22 @@ export default function BabyList() {
             if (resDetails.ok) {
               const details = await resDetails.json();
               const latest = details.length ? details[details.length - 1] : {};
+
+              let updatedDate = baby.date || "";
+
+              if (latest.data_points && Array.isArray(latest.data_points) && latest.data_points.length > 0) {
+                const lastDataPoint = latest.data_points[latest.data_points.length - 1];
+                updatedDate = lastDataPoint.updated_at || lastDataPoint.date || updatedDate;
+              } else {
+                updatedDate = latest.updated_at || latest.date || updatedDate;
+              }
+
               return {
                 ...baby,
                 weight: latest.weight,
                 height: latest.height,
                 head_circumference: latest.head_circumference,
+                date: updatedDate,
               };
             }
             return baby;
@@ -98,17 +110,10 @@ export default function BabyList() {
                 className="overflow-hidden rounded-lg border border-blue-200 bg-white shadow-md transition-all hover:border-blue-400 hover:shadow-lg"
               >
                 <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4 flex justify-between items-center">
-                  <h2 className="text-base font-semibold text-white">{baby.name}</h2>
+                  <h2 className="text-base font-semibold text-white">{baby.name} - Nascido em: {baby.birth_date}</h2>
                 </div>
 
                 <div className="p-4">
-                  {baby.birth_date && (
-                    <div className="mb-2 text-gray-700 text-sm">
-                      <p className="font-bold mb-1">Nascimento:</p>
-                      <p>{new Date(baby.birth_date).toLocaleDateString("pt-BR")}</p>
-                    </div>
-                  )}
-
                   {baby.weight !== undefined && baby.weight !== null && (
                     <div className="mb-2 text-gray-700 text-sm">
                       <p className="font-bold mb-1">Peso (kg):</p>
@@ -123,30 +128,38 @@ export default function BabyList() {
                     </div>
                   )}
 
-                  {baby.head_circumference !== undefined && baby.head_circumference !== null && (
+                  {baby.head_circumference !== undefined && baby.head_circumference !== null ? (
+                     <div className="mb-2 text-gray-700 text-sm">
+                       <p className="font-bold mb-1">Circunferência da Cabeça (cm):</p>
+                       <p>{baby.head_circumference}</p>
+                      </div>
+                  ) : (
+                    <p className="text-center">Por favor, adicione as informações.</p>
+                  )}
+
+
+                  {baby.date && (
                     <div className="mb-2 text-gray-700 text-sm">
-                      <p className="font-bold mb-1">Circunferência da Cabeça (cm):</p>
-                      <p>{baby.head_circumference}</p>
+                      <p className="font-bold mb-1">Cadastrado em 📆 :</p>
+                      <p>{new Date(baby.date).toLocaleDateString("pt-BR")}</p>
                     </div>
                   )}
-                  
-                  <div className="flex flex-col justify-between"></div>
+
                   <button
                     disabled={hasData(baby)}
                     className={`w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm transition-all duration-300
-                      ${hasData(baby) 
-                        ? "cursor-not-allowed text-gray-400 border-gray-300" 
-                        : "hover:text-blue-600 border cursor-pointer bg-green-100"}
+                      ${hasData(baby)
+                        ? "cursor-not-allowed text-gray-400 border-gray-300"
+                        : "hover:text-blue-600 border cursor-pointer bg-green-100 mt-47"
+                      }
                     `}
                   >
                     {hasData(baby) ? (
-                      // Desativado: Link não funciona
                       <div className="flex items-center w-full justify-center">
                         <FiEdit className="h-4 w-4 mr-2" />
                         Adicionar Informações
                       </div>
                     ) : (
-                      // Ativo: Link funciona
                       <Link
                         href={`/registerdetails/${baby.id}/data`}
                         className="flex items-center w-full justify-center"
@@ -162,7 +175,7 @@ export default function BabyList() {
           </div>
         </section>
       </Container>
-    <ScrollUp />
+      <ScrollUp />
     </div>
   );
 }
