@@ -41,13 +41,19 @@ jobs:
         cd /home/ec2-user/neogrow
         git pull origin main
 
+
         # Para e remove o container existente chamado neogrow-api, se ele existir.
         # O "|| true" garante que o script não falhe se o container não existir.
         docker stop neogrow-api || true
         docker rm neogrow-api || true
 
-        # Remove a lógica anterior que tentava parar containers pela porta,
-        # pois agora estamos gerenciando diretamente pelo nome "neogrow-api".
+        # Para e remove qualquer container que esteja usando a porta 80
+        containers_on_80=$(docker ps --filter "publish=80" -q)
+        if [ ! -z "$containers_on_80" ]; then
+          echo "Stopping containers using port 80: $containers_on_80"
+          docker stop $containers_on_80 || true
+          docker rm $containers_on_80 || true
+        fi
 
         echo "Building new Docker image..."
         docker build -t neogrow-api backend/
