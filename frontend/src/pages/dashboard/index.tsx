@@ -246,7 +246,7 @@ export default function Dashboard() {
               </p>
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+                className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
                 <FiHome /> Página de Instruções
               </Link>
@@ -275,12 +275,22 @@ export default function Dashboard() {
                 <p className="text-sm text-gray-500 mb-4">
                   Acesse a lista completa de registros.
                 </p>
-                <Link
-                  href="/babiespage"
-                  className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-                >
-                  <FiUsers /> Ver Lista
-                </Link>
+                {/* Caso a lista esteja vazia, desabilita o botão ver lista*/}
+                {dashboardData.total > 0 ? (
+                  <Link
+                    href="/babiespage"
+                    className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                  >
+                    <FiUsers /> Ver Lista
+                  </Link>
+                ) : (
+                  <button
+                    disabled
+                    className="inline-flex items-center gap-2 rounded-md bg-gray-300 px-4 py-2 text-sm font-medium text-gray-500 cursor-not-allowed"
+                  >
+                    <FiUsers /> Ver Lista
+                  </button>
+                )}
               </div>
             </div>
 

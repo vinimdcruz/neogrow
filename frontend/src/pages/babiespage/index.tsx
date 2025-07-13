@@ -90,9 +90,9 @@ export default function BabyList() {
           <div className="flex mt-1 justify-center md:justify-start">
             <button
               onClick={() => router.push("/dashboard")}
-              className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-40 mt-5 mb-1 md:px-8 py-2 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
+              className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-40 mt-5 mb-1 md:px-8 py-4 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
             >
-              <FiArrowLeft className="h-4 w-4 mr-2" />
+              <FiArrowLeft className="h-4 w-3 mr-2" />
               Voltar
             </button>
           </div>
@@ -134,7 +134,7 @@ export default function BabyList() {
                        <p>{baby.head_circumference}</p>
                       </div>
                   ) : (
-                    <p className="text-center">Por favor, adicione as informações.</p>
+                    <p className="text-center text-sm">Por favor, adicione as informações.</p>
                   )}
 
 
