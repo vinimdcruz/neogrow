@@ -2,6 +2,7 @@
 
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
+import { ScrollUp } from "../../components/scrollup/ScrollUp";
 import { useState, useEffect } from "react";
 import { FiEdit, FiArrowLeft } from "react-icons/fi";
 import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
@@ -161,7 +162,7 @@ export default function BabyList() {
           </div>
         </section>
       </Container>
+    <ScrollUp />
     </div>
   );
 }
-
