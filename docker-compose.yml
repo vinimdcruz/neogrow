@@ -36,7 +36,7 @@ services:
         condition: service_healthy
     volumes:
       - ./backend:/app
-    command: ./entrypoint.sh
+    command: /app/entrypoint.sh
 
   # Next.js frontend service (commented out for now)
   # frontend:
