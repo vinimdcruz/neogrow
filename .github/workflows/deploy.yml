@@ -13,20 +13,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Check if backend folder changed
-      id: check_changes
-      run: |
-        git fetch origin main
-        if git diff --quiet origin/main -- backend/; then
-          echo "No changes in backend."
-          echo "changed=false" >> $GITHUB_OUTPUT
-        else
-          echo "Changes detected in backend."
-          echo "changed=true" >> $GITHUB_OUTPUT
-        fi
-
     - name: Set up SSH
-      if: steps.check_changes.outputs.changed == 'true'
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
@@ -34,13 +21,11 @@ jobs:
         ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
     - name: Deploy Backend
-      if: steps.check_changes.outputs.changed == 'true'
       run: |
         ssh -i ~/.ssh/id_rsa ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
         set -e
         cd /home/ec2-user/neogrow
         git pull origin main
-
 
         # Para e remove o container existente chamado neogrow-api, se ele existir.
         # O "|| true" garante que o script não falhe se o container não existir.
