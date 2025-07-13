@@ -17,11 +17,11 @@ jobs:
       id: check_changes
       run: |
         git fetch origin main --depth=2 # Fetch at least last 2 commits to compare HEAD^ with HEAD
-        if git diff --quiet HEAD^ HEAD -- backend/; then
-          echo "No changes in backend."
+        if git diff --quiet HEAD^ HEAD -- backend/ backend/migrations/ backend/migrations/versions/; then
+          echo "No changes in backend or migrations."
           echo "changed=false" >> $GITHUB_OUTPUT
         else
-          echo "Changes detected in backend."
+          echo "Changes detected in backend or migrations."
           echo "changed=true" >> $GITHUB_OUTPUT
         fi
 
