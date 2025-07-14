@@ -16,7 +16,7 @@ interface babyProps {
   weight?: number;
   height?: number;
   head_circumference?: number;
-  date?: string; 
+  date?: string;
 }
 
 export default function BabyList() {
@@ -75,9 +75,12 @@ export default function BabyList() {
 
   const hasData = (baby: babyProps) => {
     return (
-      baby.weight !== undefined && baby.weight !== null &&
-      baby.height !== undefined && baby.height !== null &&
-      baby.head_circumference !== undefined && baby.head_circumference !== null
+      baby.weight !== undefined &&
+      baby.weight !== null &&
+      baby.height !== undefined &&
+      baby.height !== null &&
+      baby.head_circumference !== undefined &&
+      baby.head_circumference !== null
     );
   };
 
@@ -110,7 +113,9 @@ export default function BabyList() {
                 className="overflow-hidden rounded-lg border border-blue-200 bg-white shadow-md transition-all hover:border-blue-400 hover:shadow-lg"
               >
                 <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4 flex justify-between items-center">
-                  <h2 className="text-base font-semibold text-white">{baby.name} - Nascido em: {baby.birth_date}</h2>
+                  <h2 className="text-base font-semibold text-white">
+                    {baby.name} - Nascido em: {baby.birth_date}
+                  </h2>
                 </div>
 
                 <div className="p-4">
@@ -128,15 +133,19 @@ export default function BabyList() {
                     </div>
                   )}
 
-                  {baby.head_circumference !== undefined && baby.head_circumference !== null ? (
-                     <div className="mb-2 text-gray-700 text-sm">
-                       <p className="font-bold mb-1">Circunferência da Cabeça (cm):</p>
-                       <p>{baby.head_circumference}</p>
-                      </div>
+                  {baby.head_circumference !== undefined &&
+                  baby.head_circumference !== null ? (
+                    <div className="mb-2 text-gray-700 text-sm">
+                      <p className="font-bold mb-1">
+                        Circunferência da Cabeça (cm):
+                      </p>
+                      <p>{baby.head_circumference}</p>
+                    </div>
                   ) : (
-                    <p className="text-center text-sm">Por favor, adicione as informações.</p>
+                    <p className="text-center text-sm">
+                      Por favor, adicione as informações.
+                    </p>
                   )}
-
 
                   {baby.date && (
                     <div className="mb-2 text-gray-700 text-sm">
@@ -145,30 +154,22 @@ export default function BabyList() {
                     </div>
                   )}
 
-                  <button
-                    disabled={hasData(baby)}
-                    className={`w-full inline-flex justify-center mt-1 rounded-md border bg-background px-2 py-2 text-sm font-medium shadow-sm transition-all duration-300
-                      ${hasData(baby)
-                        ? "cursor-not-allowed text-gray-400 border-gray-300"
-                        : "hover:text-blue-600 border cursor-pointer bg-green-100 mt-47"
-                      }
-                    `}
-                  >
-                    {hasData(baby) ? (
-                      <div className="flex items-center w-full justify-center">
-                        <FiEdit className="h-4 w-4 mr-2" />
-                        Adicionar Informações
-                      </div>
-                    ) : (
-                      <Link
-                        href={`/registerdetails/${baby.id}/data`}
-                        className="flex items-center w-full justify-center"
-                      >
-                        <FiEdit className="h-4 w-4 mr-2" />
-                        Adicionar Informações
-                      </Link>
-                    )}
-                  </button>
+                  {hasData(baby) ? (
+                    <Link
+                      href={`/grafico/${baby.id}/data`}
+                      className="w-full inline-flex justify-center mt-3 rounded-md border border-blue-600 bg-blue-100 px-3 py-2 text-sm font-medium text-blue-800 hover:bg-blue-200 transition-all duration-300"
+                    >
+                      📈 Visualizar Gráfico
+                    </Link>
+                  ) : (
+                    <Link
+                      href={`/registerdetails/${baby.id}/data`}
+                      className="w-full inline-flex justify-center mt-3 rounded-md border border-green-600 bg-green-100 px-3 py-2 text-sm font-medium text-green-800 hover:bg-green-200 transition-all duration-300"
+                    >
+                      <FiEdit className="h-4 w-4 mr-2" />
+                      Adicionar Informações
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}

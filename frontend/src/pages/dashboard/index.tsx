@@ -18,8 +18,6 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
-  LineChart,
-  Line,
 } from "recharts";
 
 type DashboardData = {
@@ -332,58 +330,6 @@ export default function Dashboard() {
                     <Tooltip />
                     <Bar dataKey="total" fill="#2563eb" radius={[8, 8, 0, 0]} />
                   </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-
-            {/* Gráfico de Crescimento Médio por Mês (linha) */}
-            <div className="mt-10">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Gráfico de Crescimento Médio por Mês ({currentYear})
-              </h2>
-              <div className="w-full h-96 bg-white border border-gray-200 rounded-2xl p-6">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={growthData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip
-                      formatter={(value: number, name: string) =>
-                        `${value.toFixed(2)}${name === "avgWeight" ? " kg" : " cm"}`
-                      }
-                      labelFormatter={(label) => `Mês: ${label}`}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="avgWeight"
-                      stroke="#2563eb"
-                      name="Peso Médio (kg)"
-                      strokeWidth={3}
-                      dot={{ r: 5 }}
-                      activeDot={{ r: 7 }}
-                      connectNulls={false}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="avgHeight"
-                      stroke="#10b981"
-                      name="Altura Média (cm)"
-                      strokeWidth={3}
-                      dot={{ r: 5 }}
-                      activeDot={{ r: 7 }}
-                      connectNulls={false}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="avgHeadCirc"
-                      stroke="#FF0000"
-                      name="Circunferência da Cabeça Média (cm)"
-                      strokeWidth={3}
-                      dot={{ r: 5 }}
-                      activeDot={{ r: 7 }}
-                      connectNulls={false}
-                    />
-                  </LineChart>
                 </ResponsiveContainer>
               </div>
             </div>
