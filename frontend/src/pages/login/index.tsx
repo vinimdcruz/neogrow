@@ -137,7 +137,7 @@ export default function Login() {
             />
           </div>
 
-          {/* Consentimento LGPD */}
+          {/* Consentimento*/}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4 shadow-sm">
             <div className="flex items-start gap-3">
               <input
@@ -173,7 +173,7 @@ export default function Login() {
                 Esta aplicação é de código aberto e foi desenvolvida exclusivamente para fins educacionais, sem fins lucrativos, e sem qualquer objetivo de comercialização ou compartilhamento de dados.
               </li>
               <li>
-                O uso da aplicação é voluntário e os dados inseridos são de responsabilidade do próprio usuário.
+                O uso da aplicação é voluntário, e os dados inseridos são de responsabilidade exclusiva do usuário. Recomendamos que não sejam fornecidos dados sensíveis ou pessoais, como documentos ou nome completo; utilize apenas apelidos.
               </li>
               <li>
                 Nenhuma informação pessoal ou sensível será armazenada ou utilizada sem o consentimento claro e informado do usuário, conforme previsto na Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).
@@ -182,7 +182,7 @@ export default function Login() {
                 Os desenvolvedores não assumem responsabilidade por qualquer uso indevido, malicioso ou não autorizado das informações inseridas na aplicação, nem por integrações externas realizadas por terceiros.
               </li>
               <li>
-                Ao continuar utilizando o aplicativo, o usuário declara estar ciente e de acordo com os termos aqui descritos.
+                Ao efetuar login e utilizar o aplicativo, o usuário declara estar ciente e de acordo com os termos aqui descritos.
               </li>
             </ul>
           </div>

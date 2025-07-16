@@ -3,7 +3,7 @@
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
 import toast, { Toaster } from 'react-hot-toast';
@@ -23,6 +23,15 @@ export default function RegisterBaby() {
     name: "",
     birth_date: "",
   });
+
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+  const nameIsValid = form.name.trim().length > 0;
+  const dateIsValid = /^\d{4}-\d{2}-\d{2}$/.test(form.birth_date);
+  setIsValid(nameIsValid && dateIsValid);
+}, [form]);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -127,7 +136,12 @@ export default function RegisterBaby() {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white cursor-pointer py-2 rounded-md font-medium transition"
+                disabled={!isValid}
+                className={`w-full py-2 rounded-md font-medium transition ${
+                  isValid
+                    ? "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+                    : "bg-gray-300 text-gray-600 cursor-not-allowed"
+                }`}
               >
                 Salvar Registro
               </button>
