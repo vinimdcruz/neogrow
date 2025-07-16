@@ -133,18 +133,13 @@ export default function BabyList() {
                     </div>
                   )}
 
-                  {baby.head_circumference !== undefined &&
-                  baby.head_circumference !== null ? (
+                  {baby.head_circumference !== undefined && baby.head_circumference !== null ? (
                     <div className="mb-2 text-gray-700 text-sm">
-                      <p className="font-bold mb-1">
-                        Circunferência da Cabeça (cm):
-                      </p>
+                      <p className="font-bold mb-1">Circunferência da Cabeça (cm):</p>
                       <p>{baby.head_circumference}</p>
                     </div>
                   ) : (
-                    <p className="text-center text-sm">
-                      Por favor, adicione as informações.
-                    </p>
+                    <p className="text-center text-sm">Por favor, adicione as informações.</p>
                   )}
 
                   {baby.date && (
@@ -155,15 +150,23 @@ export default function BabyList() {
                   )}
 
                   {hasData(baby) ? (
-                    <Link
-                      href={`/grafico/${baby.id}/data`}
-                      className="w-full inline-flex justify-center mt-3 rounded-md border border-blue-600 bg-blue-100 px-3 py-2 text-sm font-medium text-blue-800 hover:bg-blue-200 transition-all duration-300"
-                    >
-                      📈 Visualizar Gráfico
-                    </Link>
+                    <div className="flex flex-col gap-2 mt-3">
+                      <Link
+                        href={`/grafico/${baby.id}/data`}
+                        className="w-full inline-flex justify-center rounded-md border border-blue-600 bg-blue-100 px-3 py-2 text-sm font-medium text-blue-800 hover:bg-blue-200 transition-all duration-300"
+                      >
+                        📈 Visualizar Gráfico
+                      </Link>
+                      <Link
+                        href={`/registry-table/${baby.id}/data`}
+                        className="w-full inline-flex justify-center rounded-md border border-green-600 bg-green-100 px-3 py-2 text-sm font-medium text-green-800 hover:bg-green-200 transition-all duration-300"
+                      >
+                        📋 Visualizar informações cadastradas
+                      </Link>
+                    </div>
                   ) : (
                     <Link
-                      href={`/registerdetails/${baby.id}/data`}
+                      href={`/registry-table/${baby.id}/data`}
                       className="w-full inline-flex justify-center mt-3 rounded-md border border-green-600 bg-green-100 px-3 py-2 text-sm font-medium text-green-800 hover:bg-green-200 transition-all duration-300"
                     >
                       <FiEdit className="h-4 w-4 mr-2" />

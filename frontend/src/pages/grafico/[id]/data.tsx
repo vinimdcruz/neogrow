@@ -22,9 +22,12 @@ interface DataPoint {
   weight?: number;
 }
 
-interface BabyDataEntry {
-  data_points: DataPoint[];
-  birth_date?: string;
+interface RegistryItem {
+  id: number;
+  weight?: number;
+  height?: number;
+  head_circumference?: number;
+  created_at: string;
 }
 
 const weightWHO = [
@@ -54,7 +57,6 @@ const weightWHO = [
   { month: 24, minus2: 7.8, normal: 12.2, plus2: 13.5 },
 ];
 
-// Calcula diferença em meses entre duas datas
 function getDiffInMonths(from: Date, to: Date): number {
   const years = to.getFullYear() - from.getFullYear();
   const months = to.getMonth() - from.getMonth();
@@ -78,21 +80,34 @@ export default function GraficoPeso() {
     async function fetchBabyData() {
       try {
         const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/${id}/data/`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
 
-        if (!res.ok) {
-          console.error("Erro ao buscar dados do bebê", res.status);
+        const [dataRes, babyRes] = await Promise.all([
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/${id}/data/`, {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/${id}/`, {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
+
+        if (!dataRes.ok || !babyRes.ok) {
+          console.error("Erro ao buscar dados do bebê");
           return;
         }
 
-        const data: BabyDataEntry[] = await res.json();
-        if (!data.length) return;
+        const data: RegistryItem[] = await dataRes.json();
+        const babyInfo = await babyRes.json();
 
-        setBirthDate(data[0].birth_date ? new Date(data[0].birth_date) : null);
-        const pontos = data.flatMap((entry) => entry.data_points || []);
-        setAllPoints(pontos);
+        setBirthDate(new Date(babyInfo.birth_date));
+
+        const points = data
+          .filter((entry) => entry.weight != null)
+          .map((entry) => ({
+            date: entry.created_at,
+            weight: entry.weight!,
+          }));
+
+        setAllPoints(points);
       } catch (error) {
         console.error("Erro ao buscar dados do bebê:", error);
       }
@@ -116,7 +131,6 @@ export default function GraficoPeso() {
       const month = getDiffInMonths(birthDate, weightDate);
       if (month < 1 || month > 24) return;
 
-      // Usa o último registro do mês (mais recente)
       if (!grouped.has(month) || new Date(grouped.get(month)!.date) < weightDate) {
         grouped.set(month, { weight: p.weight, date: p.date });
       }
