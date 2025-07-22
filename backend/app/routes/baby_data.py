@@ -43,3 +43,19 @@ async def read_baby_data(
     if start_date and end_date:
         return crud.get_baby_data_by_date_range(db, baby_id, start_date, end_date)
     return crud.get_baby_data(db, baby_id)
+
+@router.delete("/babies/{baby_id}/data/{data_id}")
+async def delete_baby_data(
+    baby_id: int,
+    data_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    await verify_baby_ownership(baby_id, current_user, db)
+    
+    baby_data = crud.get_single_baby_data(db, data_id=data_id, baby_id=baby_id)
+    if not baby_data:
+        raise HTTPException(status_code=404, detail="Baby data not found")
+    
+    crud.delete_baby_data(db=db, data_id=data_id)
+    return {"detail": "Baby data deleted successfully"}

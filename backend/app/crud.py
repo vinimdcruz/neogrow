@@ -43,11 +43,28 @@ def create_baby_data(db: Session, baby_data: schemas.BabyDataCreate, baby_id: in
     return db_baby_data
 
 def get_baby_data(db: Session, baby_id: int):
-    return db.query(models.BabyData).filter(models.BabyData.baby_id == baby_id).all()
+    return db.query(models.BabyData).filter(models.BabyData.baby_id == baby_id, models.BabyData.deleted_at == None).all()
+
+def get_single_baby_data(db: Session, baby_id: int, data_id: int):
+    return db.query(models.BabyData).filter(
+        models.BabyData.id == data_id,
+        models.BabyData.baby_id == baby_id,
+        models.BabyData.deleted_at == None
+    ).first()
 
 def get_baby_data_by_date_range(db: Session, baby_id: int, start_date: date, end_date: date):
     return db.query(models.BabyData).filter(
         models.BabyData.baby_id == baby_id,
         models.BabyData.date >= start_date,
-        models.BabyData.date <= end_date
+        models.BabyData.date <= end_date,
+        models.BabyData.deleted_at == None
     ).all()
+
+def delete_baby_data(db: Session, data_id: int):
+    from datetime import datetime
+    db_baby_data = db.query(models.BabyData).filter(models.BabyData.id == data_id).first()
+    if db_baby_data:
+        db_baby_data.deleted_at = datetime.utcnow()
+        db.commit()
+        return True
+    return False

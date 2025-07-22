@@ -58,4 +58,4 @@ class User(UserBase):
     babies: List[Baby] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True

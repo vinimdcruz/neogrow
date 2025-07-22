@@ -2,8 +2,8 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install system dependencies including PostgreSQL development files and netcat
-RUN apt-get update && apt-get install -y \
+# Upgrade system packages and install dependencies including PostgreSQL development files and netcat
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     postgresql-client \
     libpq-dev \
     gcc \
