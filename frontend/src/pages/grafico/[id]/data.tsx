@@ -27,7 +27,7 @@ interface RegistryItem {
   weight?: number;
   height?: number;
   head_circumference?: number;
-  created_at: string;
+  date: string;
 }
 
 const weightWHO = [
@@ -103,7 +103,7 @@ export default function GraficoPeso() {
         const points = data
           .filter((entry) => entry.weight != null)
           .map((entry) => ({
-            date: entry.created_at,
+            date: entry.date,
             weight: entry.weight!,
           }));
 
@@ -122,42 +122,30 @@ export default function GraficoPeso() {
       return;
     }
 
-    const grouped = new Map<number, { weight: number; date: string }>();
-
-    allPoints.forEach((p) => {
-      if (p.weight == null) return;
-
-      const weightDate = new Date(p.date);
-      const month = getDiffInMonths(birthDate, weightDate);
-      if (month < 1 || month > 24) return;
-
-      if (!grouped.has(month) || new Date(grouped.get(month)!.date) < weightDate) {
-        grouped.set(month, { weight: p.weight, date: p.date });
-      }
-    });
-
-    const result = Array.from(grouped.entries())
-      .map(([month, { weight, date }]) => ({
-        month,
-        weight,
-        date,
-      }))
-      .sort((a, b) => a.month - b.month);
+    const result = allPoints
+      .map((p) => {
+        const weightDate = new Date(p.date);
+        const month = getDiffInMonths(birthDate, weightDate);
+        return {
+          month,
+          weight: p.weight!,
+          date: p.date,
+        };
+      })
+      .filter((entry) => entry.month >= 1 && entry.month <= 24)
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     setBabyData(result);
   }, [birthDate, allPoints]);
 
-  const chartData = weightWHO.map((item) => {
-    const found = babyData.find((d) => d.month === item.month);
-    return {
-      month: item.month,
-      minus2: item.minus2,
-      normal: item.normal,
-      plus2: item.plus2,
-      babyWeight: found ? found.weight : null,
-      babyDate: found ? found.date : null,
-    };
-  });
+  const chartData = [
+    ...weightWHO,
+    ...babyData.map((entry) => ({
+      month: entry.month,
+      babyWeight: entry.weight,
+      babyDate: entry.date,
+    })),
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -166,7 +154,7 @@ export default function GraficoPeso() {
       <Container>
         <div className="flex mt-1 justify-center md:justify-start">
           <button
-            onClick={() => router.push("/babiespage")}
+            onClick={() => router.push(`/registry-table/${id}/data`)}
             className="self-start h-9 inline-flex items-center justify-center rounded-md border bg-background px-40 mt-5 mb-1 md:px-8 py-4 text-sm font-medium shadow-sm mb-10 cursor-pointer hover:text-blue-600 transition-colors duration-300"
           >
             <FiArrowLeft className="h-4 w-3 mr-2" />
@@ -187,22 +175,23 @@ export default function GraficoPeso() {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="month"
-                label={{ value: "Meses", position: "insideBottomRight", offset: -5 }}
+                label={{ value: "Meses de vida", position: "insideBottomRight", offset: -5 }}
                 tickCount={24}
                 domain={[1, 24]}
                 type="number"
+                tickFormatter={(tick) => `${tick}m`}
               />
               <YAxis
                 label={{ value: "Peso (kg)", angle: -90, position: "insideLeft" }}
               />
               <Tooltip
-                formatter={(value: any, name: any) => [`${value} kg`, name]}
-                labelFormatter={(month: number) => {
-                  const found = chartData.find((d) => d.month === month);
-                  return found?.babyDate
-                    ? `Data: ${new Date(found.babyDate).toLocaleDateString("pt-BR")}`
-                    : `Mês ${month}`;
+                formatter={(value: any, name: any, props: any) => {
+                  if (name === "Peso do bebê" && props.payload.babyDate) {
+                    return [`${value} kg`, `Peso em ${new Date(props.payload.babyDate).toLocaleDateString("pt-BR")}`];
+                  }
+                  return [`${value} kg`, name];
                 }}
+                labelFormatter={(month: number) => `Mês ${month}`}
               />
               <Legend verticalAlign="top" height={36} />
               <Line
@@ -231,8 +220,10 @@ export default function GraficoPeso() {
               <Line
                 type="monotone"
                 dataKey="babyWeight"
-                stroke="#ff0000"
+                stroke="#ff4d4f"
+                strokeWidth={3}
                 name="Peso do bebê"
+                dot={{ r: 4, stroke: '#ff4d4f', strokeWidth: 2, fill: '#fff' }}
                 activeDot={{ r: 6 }}
                 connectNulls
               />

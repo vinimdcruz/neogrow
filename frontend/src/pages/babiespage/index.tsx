@@ -121,6 +121,7 @@ export default function BabyList() {
                 <div className="p-4">
                   {baby.weight !== undefined && baby.weight !== null && (
                     <div className="mb-2 text-gray-700 text-sm">
+                      <p className="text-center text-blue-600 font-semibold text-sm tracking-wide mb-2">Último cadastro:</p>
                       <p className="font-bold mb-1">Peso (kg):</p>
                       <p>{baby.weight}</p>
                     </div>
@@ -152,16 +153,16 @@ export default function BabyList() {
                   {hasData(baby) ? (
                     <div className="flex flex-col gap-2 mt-3">
                       <Link
+                        href={`/registry-table/${baby.id}/data`}
+                        className="w-full inline-flex justify-center rounded-md border border-green-600 bg-green-100 px-3 py-2 text-sm font-medium text-green-800 hover:bg-green-200 transition-all duration-300"
+                      >
+                        📋 Visualizar todas as informações cadastradas
+                      </Link>
+                      <Link
                         href={`/grafico/${baby.id}/data`}
                         className="w-full inline-flex justify-center rounded-md border border-blue-600 bg-blue-100 px-3 py-2 text-sm font-medium text-blue-800 hover:bg-blue-200 transition-all duration-300"
                       >
                         📈 Visualizar Gráfico
-                      </Link>
-                      <Link
-                        href={`/registry-table/${baby.id}/data`}
-                        className="w-full inline-flex justify-center rounded-md border border-green-600 bg-green-100 px-3 py-2 text-sm font-medium text-green-800 hover:bg-green-200 transition-all duration-300"
-                      >
-                        📋 Visualizar informações cadastradas
                       </Link>
                     </div>
                   ) : (

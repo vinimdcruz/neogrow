@@ -51,7 +51,7 @@ export default function RegistryTable() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/registry/${itemId}/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/${id}/data/${itemId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -89,7 +89,7 @@ export default function RegistryTable() {
           </button>
         </div>
 
-        <h1 className="text-xl font-bold text-gray-700 mb-6 mt-6 text-center">Tabela de Registros 📋</h1>
+        <h1 className="text-xl font-bold text-gray-700 mb-6 mt-6 text-center">Tabela de Registros 📋 </h1>
 
         <div className="overflow-x-auto shadow border rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
