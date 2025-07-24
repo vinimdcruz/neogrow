@@ -1,6 +1,7 @@
 "use client"
 
 import { Header } from "@/components/header/Header"
+import  Link  from "next/link"
 import { Container } from "@/components/container/Container"
 import { FaBaby, FaGithub, FaChartLine, FaBell, FaChartBar } from "react-icons/fa"
 import { Footer } from "@/components/footer/Footer"
@@ -26,6 +27,21 @@ export default function Main() {
                 </div>
                 <p className="text-xl text-gray-600 max-w-xl text-justify items-center md:items-center mx-auto">
                   Backend com FastAPI para ajudar os pais no acompanhamento do crescimento de seu bebê com insights personalizados.
+                </p>
+                <p className="text-md text-black-600 max-w-xl text-justify items-center md:items-center mx-auto">
+                  <em>*O projeto NeoGrow não realiza diagnósticos médicos nem substitui acompanhamento profissional. As informações e gráficos contidos na aplicação possuem apenas caráter meramente informativo.  </em>
+                  <em><b>Consulte um profissional médico de saúde em caso de dúvidas sobre o desenvolvimento da criança.* </b>
+                  <br />
+                  <br />
+                  Para maiores informações, consulte os    
+                  <Link
+                    href="/privacyandterms"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-600 font-medium hover:underline"
+                    >
+                      Termos de Uso e Política de Privacidade
+                </Link></em>
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center items-center md:justify-center md:items-center">
                   <a
@@ -56,7 +72,7 @@ export default function Main() {
                     {
                       icon: <FaChartLine className="h-6 w-6 text-blue-600" />,
                       title: "Curvas de Crescimento",
-                      desc: "Acompanhamento para bebês",
+                      desc: "Acompanhamento visual",
                     },
                     {
                       icon: <FaBell className="h-6 w-6 text-blue-600" />,
@@ -87,7 +103,7 @@ export default function Main() {
               </span>
               <h2 className="text-2xl font-bold mb-4">Funcionalidades</h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Ferramentas para acompanhar o desenvolvimento de forma fácil e intuitiva.
+                Ferramentas informativas para acompanhar o desenvolvimento de forma fácil e intuitiva.
               </p>
             </div>
 
@@ -132,7 +148,7 @@ export default function Main() {
           <section className="w-full mt-18 md:mt-25 py-16 px-8 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 text-white text-center">
             <h2 className="text-3xl font-bold mb-6">Acompanhe o crescimento do seu bebê hoje 👶</h2>
             <p className="text-xl max-w-2xl mx-auto mb-8 text-blue-100">
-              Acesse nossa aplicação para melhor acompanhamento. Caso você seja um desenvolvedor, sinta-se à vontade para contribuir com o projeto no GitHub.
+              Acesse nossa aplicação para melhor acompanhamento. Caso você seja um  e papai, sinta-se à vontade para contribuir com o projeto no GitHub.
             </p>
             <div className="hover:scale-105">
               <a

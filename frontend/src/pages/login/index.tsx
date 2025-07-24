@@ -96,7 +96,7 @@ export default function Login() {
       <Toaster position="top-right" />
       <DevelopmentBadge />
 
-      <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1 mt-5 md:mt-0">
+      <div className="w-full min-h-screen flex justify-center items-center flex-col gap-1 mt-5 md:mt-2">
         <Link href="/">
           <Image
             src={minhaImagem}
@@ -137,7 +137,7 @@ export default function Login() {
             />
           </div>
 
-          {/* Consentimento LGPD */}
+          {/* Consentimento*/}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4 shadow-sm">
             <div className="flex items-start gap-3">
               <input
@@ -148,14 +148,14 @@ export default function Login() {
               />
               <label htmlFor="consent" className="text-sm text-gray-800">
                 Eu concordo com{" "}
-                <a
-                  href="https://github.com/vinimdcruz/neogrow"
+                <Link
+                  href="/privacyandterms"
                   target="_blank"
                   rel="noreferrer"
                   className="text-blue-600 font-medium hover:underline"
                 >
                   Termos de Uso e Política de Privacidade
-                </a>, conforme listados <span className="font-semibold">abaixo</span>.
+                </Link>
               </label>
             </div>
             {errors.consent && (
@@ -173,7 +173,7 @@ export default function Login() {
                 Esta aplicação é de código aberto e foi desenvolvida exclusivamente para fins educacionais, sem fins lucrativos, e sem qualquer objetivo de comercialização ou compartilhamento de dados.
               </li>
               <li>
-                O uso da aplicação é voluntário e os dados inseridos são de responsabilidade do próprio usuário.
+                O uso da aplicação é voluntário, e os dados inseridos são de responsabilidade exclusiva do usuário. Recomendamos que não sejam fornecidos dados sensíveis ou pessoais, como documentos ou nome completo; utilize apenas apelidos.
               </li>
               <li>
                 Nenhuma informação pessoal ou sensível será armazenada ou utilizada sem o consentimento claro e informado do usuário, conforme previsto na Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).
@@ -182,14 +182,25 @@ export default function Login() {
                 Os desenvolvedores não assumem responsabilidade por qualquer uso indevido, malicioso ou não autorizado das informações inseridas na aplicação, nem por integrações externas realizadas por terceiros.
               </li>
               <li>
-                Ao continuar utilizando o aplicativo, o usuário declara estar ciente e de acordo com os termos aqui descritos.
+                <b>Esta aplicação não realiza diagnósticos médicos nem substitui acompanhamento profissional. Consulte um profissional médico de saúde em caso de dúvidas sobre o desenvolvimento da criança.</b>
+              </li>
+              <li>
+                <b>Ao efetuar login e utilizar o aplicativo, o usuário declara estar ciente e de acordo com os  
+                <Link
+                 href="/privacyandterms"
+                 target="_blank"
+                 rel="noreferrer"
+                 className="text-blue-600 font-medium hover:underline"
+                >
+                  Termos de Uso e Política de Privacidade
+                </Link>.</b>
               </li>
             </ul>
           </div>
 
           <button
             type="submit"
-            className="w-full h-10 bg-blue-600 rounded-md text-white hover:bg-blue-700 mb-2 mt-4 cursor-pointer disabled:opacity-60"
+            className="w-full h-10 bg-blue-600 rounded-md text-white hover:bg-blue-700 mb-1 mt-4 cursor-pointer disabled:opacity-60"
             disabled={loading}
           >
             {loading ? "Entrando..." : "Acessar"}
