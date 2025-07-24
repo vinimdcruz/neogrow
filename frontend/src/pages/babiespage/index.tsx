@@ -31,7 +31,7 @@ export default function BabyList() {
           headers: { Authorization: `Bearer ${token}` },
         });
         const babiesData = await resBabies.json();
-        console.log("Dados recebidos da API:", babiesData);
+        console.debug("Dados recebidos da API:", babiesData);
 
         const babiesWithDetails = await Promise.all(
           babiesData.map(async (baby: babyProps) => {

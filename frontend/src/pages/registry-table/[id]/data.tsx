@@ -120,12 +120,6 @@ export default function RegistryTable() {
                     </td>
                     <td className="px-6 py-4 text-right space-x-2">
                       <button
-                        onClick={() => router.push(`/registry-table/${item.id}/edit`)}
-                        className="inline-flex items-center px-3 py-1 text-sm bg-yellow-100 text-yellow-800 rounded hover:bg-yellow-200"
-                      >
-                        <FiEdit className="mr-1" /> Editar
-                      </button>
-                      <button
                         onClick={() => deleteItem(item.id)}
                         className="inline-flex items-center px-3 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200"
                       >

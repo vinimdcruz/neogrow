@@ -35,6 +35,14 @@ type Itens = {
   head_circumference?: number;
 };
 
+// Cálculo do crescimento médio por mês (peso, altura, circunferência)
+type GrowthAccumulator = {
+  weightSum: number;
+  heightSum: number;
+  headCircSum: number;
+  count: number;
+};
+
 export default function Dashboard() {
   const { signed, loading } = useAuth();
   const router = useRouter();
@@ -158,14 +166,6 @@ export default function Dashboard() {
 
         setItensPerMonth(chartData);
 
-        // Cálculo do crescimento médio por mês (peso, altura, circunferência)
-        type GrowthAccumulator = {
-          weightSum: number;
-          heightSum: number;
-          headCircSum: number;
-          count: number;
-        };
-
         const growthAccumulator: { [key: number]: GrowthAccumulator } = {};
 
         babiesWithData.forEach((baby) => {
@@ -246,7 +246,7 @@ export default function Dashboard() {
                 href="/"
                 className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
-                <FiHome /> Página de Instruções
+                <FiHome /> Página de Informações
               </Link>
             </div>
 

@@ -38,8 +38,8 @@ export default function RegisterDetails() {
   }, [form]);
 
   const formatToDecimal = (value: string): string => {
-    // Remove tudo que não for número
-    const cleaned = value.replace(/\D/g, "").slice(0, 5); // limite para 5 dígitos (ex: 999.99)
+    const MAX_INPUT_DIGITS = 5;
+    const cleaned = value.replace(/\D/g, "").slice(0, MAX_INPUT_DIGITS); // Só pode 5 dígitos no máximo
 
     if (cleaned.length === 0) return "";
 

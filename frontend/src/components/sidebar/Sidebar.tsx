@@ -10,7 +10,7 @@ export function Sidebar() {
           className="flex items-center gap-3 text-gray-700 hover:text-blue-600 font-medium"
         >
           <FiHome />
-          Dashboard
+          Página de Informações
         </Link>
 
         <Link
