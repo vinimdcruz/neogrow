@@ -42,7 +42,7 @@ def create_baby(db: Session, baby: schemas.BabyCreate, user_id: int) -> schemas.
         created_at=db_baby.created_at,
         updated_at=db_baby.updated_at,
         deleted_at=db_baby.deleted_at,
-        growth_data=[],  # ou use outro CRUD para buscar os dados de crescimento se precisar
+        growth_data=[],  # or use another CRUD to fetch growth data if needed
     )
 
 
