@@ -25,7 +25,7 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 def create_baby(db: Session, baby: schemas.BabyCreate, user_id: int) -> schemas.Baby:
     baby_data = baby.dict()
-    baby_data["gender"] = baby.gender.to_db()  # "M" ou "F" para o banco
+    baby_data["gender"] = baby.gender.to_db()  # "M" or "F" for the database
 
     db_baby = models.Baby(**baby_data, user_id=user_id)
     db.add(db_baby)
