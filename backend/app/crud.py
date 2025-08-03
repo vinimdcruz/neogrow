@@ -48,10 +48,39 @@ def create_baby(db: Session, baby: schemas.BabyCreate, user_id: int) -> schemas.
 
 
 def get_baby(db: Session, baby_id: int):
-    return db.query(models.Baby).filter(models.Baby.id == baby_id).first()
+    db_baby = db.query(models.Baby).filter(models.Baby.id == baby_id).first()
+    if db_baby:
+        return schemas.Baby(
+            id=db_baby.id,
+            name=db_baby.name,
+            birth_date=db_baby.birth_date,
+            gender=Gender.from_db(db_baby.gender),  # <- converte de 'M'/'F' para Enum
+            user_id=db_baby.user_id,
+            created_at=db_baby.created_at,
+            updated_at=db_baby.updated_at,
+            deleted_at=db_baby.deleted_at,
+            growth_data=[]  # pode ser populado com dados se necessário
+        )
+    return None
 
-def get_babies_by_user(db: Session, user_id: int):
-    return db.query(models.Baby).filter(models.Baby.user_id == user_id).all()
+
+def get_babies_by_user(db: Session, user_id: int) -> List[schemas.Baby]:
+    db_babies = db.query(models.Baby).filter(models.Baby.user_id == user_id).all()
+    return [
+        schemas.Baby(
+            id=baby.id,
+            name=baby.name,
+            birth_date=baby.birth_date,
+            gender=Gender.from_db(baby.gender),
+            user_id=baby.user_id,
+            created_at=baby.created_at,
+            updated_at=baby.updated_at,
+            deleted_at=baby.deleted_at,
+            growth_data=[]
+        )
+        for baby in db_babies
+    ]
+
 
 def create_baby_data(db: Session, baby_data: schemas.BabyDataCreate, baby_id: int):
     db_baby_data = models.BabyData(**baby_data.dict(), baby_id=baby_id)
