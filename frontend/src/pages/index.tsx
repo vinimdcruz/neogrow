@@ -65,7 +65,7 @@ export default function Main() {
               <div className="rounded-2xl border border-blue-400 p-8 shadow-2xl bg-white backdrop-blur-sm hover:translate-y-[-5px] text-center md:text-left">
                 <h3 className="text-2xl font-bold mb-4">Acompanhamento Inteligente ✨</h3>
                 <p className="text-gray-600 mb-8">
-                  Monitore o crescimento com precisão e receba insights baseados em métricas de crescimento.
+                  Monitore o crescimento com precisão e receba insights baseados em métricas educativas de crescimento.
                 </p>
                 <div className="space-y-6">
                   {[
