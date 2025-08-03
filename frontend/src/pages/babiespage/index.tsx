@@ -16,6 +16,7 @@ interface babyProps {
   weight?: number;
   height?: number;
   head_circumference?: number;
+  gender: string;
   date?: string;
 }
 
@@ -30,6 +31,7 @@ export default function BabyList() {
         const resBabies = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+
         const babiesData = await resBabies.json();
         console.debug("Dados recebidos da API:", babiesData);
 
@@ -53,13 +55,14 @@ export default function BabyList() {
               }
 
               return {
-                ...baby,
+                ...baby, // 👈 garante que o gender e os demais campos sejam mantidos
                 weight: latest.weight,
                 height: latest.height,
                 head_circumference: latest.head_circumference,
                 date: updatedDate,
               };
             }
+
             return baby;
           })
         );
@@ -83,6 +86,19 @@ export default function BabyList() {
       baby.head_circumference !== null
     );
   };
+
+  function formatDateToBR(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("pt-BR");
+  }
+
+  function getGenderLabel(gender: string) {
+    if (!gender) return "-";
+    const g = gender.toLowerCase();
+    if (g === "male") return "Masculino";
+    if (g === "female") return "Feminino";
+    return gender;
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -114,14 +130,18 @@ export default function BabyList() {
               >
                 <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-4 flex justify-between items-center">
                   <h2 className="text-base font-semibold text-white">
-                    {baby.name} - Nascido em: {baby.birth_date}
+                    {baby.name} - Nascido em: {formatDateToBR(baby.birth_date)}
                   </h2>
                 </div>
 
                 <div className="p-4">
+                  <div className="mb-2 text-gray-700 text-sm">
+                    <p className="font-bold mb-1">Gênero:</p>
+                    <p>{getGenderLabel(baby.gender)}</p>
+                  </div>
+
                   {baby.weight !== undefined && baby.weight !== null && (
                     <div className="mb-2 text-gray-700 text-sm">
-                      <p className="text-center text-blue-600 font-semibold text-sm tracking-wide mb-2">Último cadastro:</p>
                       <p className="font-bold mb-1">Peso (kg):</p>
                       <p>{baby.weight}</p>
                     </div>
@@ -146,7 +166,7 @@ export default function BabyList() {
                   {baby.date && (
                     <div className="mb-2 text-gray-700 text-sm">
                       <p className="font-bold mb-1">Cadastrado em 📆 :</p>
-                      <p>{new Date(baby.date).toLocaleDateString("pt-BR")}</p>
+                      <p>{formatDateToBR(baby.date)}</p>
                     </div>
                   )}
 
@@ -162,7 +182,7 @@ export default function BabyList() {
                         href={`/grafico/${baby.id}/data`}
                         className="w-full inline-flex justify-center rounded-md border border-blue-600 bg-blue-100 px-3 py-2 text-sm font-medium text-blue-800 hover:bg-blue-200 transition-all duration-300"
                       >
-                        📈 Visualizar Gráfico
+                        📈 Visualizar Gráfico de Peso
                       </Link>
                     </div>
                   ) : (

@@ -185,7 +185,7 @@ export default function Login() {
                 <b>Esta aplicação não realiza diagnósticos médicos nem substitui acompanhamento profissional. Consulte um profissional médico de saúde em caso de dúvidas sobre o desenvolvimento da criança.</b>
               </li>
               <li>
-                <b>Ao efetuar login e utilizar o aplicativo, o usuário declara estar ciente e de acordo com os  
+                Ao efetuar login e utilizar o aplicativo, o usuário declara estar ciente e de acordo com os  
                 <Link
                  href="/privacyandterms"
                  target="_blank"
@@ -193,7 +193,7 @@ export default function Login() {
                  className="text-blue-600 font-medium hover:underline"
                 >
                   Termos de Uso e Política de Privacidade
-                </Link>.</b>
+                </Link>.
               </li>
             </ul>
           </div>
