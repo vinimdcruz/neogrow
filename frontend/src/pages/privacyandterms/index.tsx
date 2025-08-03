@@ -126,13 +126,13 @@ export default function TermsPage() {
                 onClick={handleAccept}
                 className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition duration-200 cursor-pointer"
               >
-                Eu aceito e quero continuar
+                Eu aceito e quero continuar.
               </button>
               <button
                 onClick={handleDecline}
                 className="px-6 py-3 rounded-lg bg-red-700 text-white font-medium hover:bg-red-400 transition duration-200 cursor-pointer"
               >
-                Não aceito e quero sair do App
+                Não aceito e quero sair do App.
               </button>
             </div>
           </section>
