@@ -3,6 +3,7 @@ from . import models, schemas
 from .auth.hashing import get_password_hash
 from datetime import date
 from typing import List
+from app.schemas import Gender
 
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
@@ -22,12 +23,29 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.refresh(db_user)
     return db_user
 
-def create_baby(db: Session, baby: schemas.BabyCreate, user_id: int):
-    db_baby = models.Baby(**baby.dict(), user_id=user_id)
+def create_baby(db: Session, baby: schemas.BabyCreate, user_id: int) -> schemas.Baby:
+    baby_data = baby.dict()
+    baby_data["gender"] = baby.gender.to_db()  # "M" or "F" for the database
+
+    db_baby = models.Baby(**baby_data, user_id=user_id)
     db.add(db_baby)
     db.commit()
     db.refresh(db_baby)
-    return db_baby
+
+    # Converte "M"/"F" de volta para Gender Enum antes de retornar
+    return schemas.Baby(
+        id=db_baby.id,
+        name=db_baby.name,
+        birth_date=db_baby.birth_date,
+        gender=Gender.from_db(db_baby.gender),
+        user_id=db_baby.user_id,
+        created_at=db_baby.created_at,
+        updated_at=db_baby.updated_at,
+        deleted_at=db_baby.deleted_at,
+        growth_data=[],  # or use another CRUD to fetch growth data if needed
+    )
+
+
 
 def get_baby(db: Session, baby_id: int):
     return db.query(models.Baby).filter(models.Baby.id == baby_id).first()
