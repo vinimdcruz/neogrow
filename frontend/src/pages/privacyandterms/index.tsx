@@ -12,7 +12,7 @@ export default function TermsPage() {
   const router = useRouter()
 
   const handleAccept = () => {
-    router.push("/login")
+    router.push("/dashboard")
   }
 
   const handleDecline = () => {
@@ -70,13 +70,15 @@ export default function TermsPage() {
               <li>Contribuir de forma ética e responsável, caso deseje colaborar com o projeto no GitHub.</li>
             </ul>
 
-            <h2 className="text-xl font-semibold text-blue-600">4. Controle</h2>
+            <h2 className="text-xl font-semibold text-blue-600">4. Controle de Dados</h2>
             <p>
               O NeoGrow <strong>não compartilha dados pessoais</strong> dos usuários. A aplicação pode utilizar <strong>cookies funcionais</strong> apenas para melhorar a experiência do usuário (ex: manter preferências ou exibir avisos).
               <br />
               Nenhum dado é utilizado para fins comerciais ou de rastreamento. 
               <br />
-              <b>Recomendamos utilizar apelidos e não inserir dados como documentos pessoais ou nomes completos.</b>
+              Não coletamos imagens seja .jpeg, png, ou qualquer outro tipo de arquivo.
+              <br />
+              <b>Por ser uma aplicação de código aberto, recomendamos utilizar apelidos e não inserir dados como documentos pessoais ou nomes completos.</b>
             </p>
 
             <h2 className="text-xl font-semibold text-blue-600">5. Cookies</h2>
@@ -124,13 +126,13 @@ export default function TermsPage() {
                 onClick={handleAccept}
                 className="px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition duration-200 cursor-pointer"
               >
-                Eu aceito e quero continuar
+                Eu aceito e quero continuar.
               </button>
               <button
                 onClick={handleDecline}
                 className="px-6 py-3 rounded-lg bg-red-700 text-white font-medium hover:bg-red-400 transition duration-200 cursor-pointer"
               >
-                Não aceito e quero sair do App
+                Não aceito e quero sair do App.
               </button>
             </div>
           </section>

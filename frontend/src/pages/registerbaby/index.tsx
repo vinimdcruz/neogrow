@@ -11,6 +11,7 @@ import toast, { Toaster } from 'react-hot-toast';
 interface BabyFormProps {
   name: string;
   birth_date: string;
+  gender: string;
 }
 
 export default function RegisterBaby() {
@@ -22,6 +23,7 @@ export default function RegisterBaby() {
   const [form, setForm] = useState<BabyFormProps>({
     name: "",
     birth_date: "",
+    gender: "",
   });
 
   const [isValid, setIsValid] = useState(false);
@@ -29,11 +31,12 @@ export default function RegisterBaby() {
   useEffect(() => {
   const nameIsValid = form.name.trim().length > 0;
   const dateIsValid = /^\d{4}-\d{2}-\d{2}$/.test(form.birth_date);
-  setIsValid(nameIsValid && dateIsValid);
+  const genderIsValid = form.gender === "male" || form.gender === "female";
+  setIsValid(nameIsValid && dateIsValid && genderIsValid);
 }, [form]);
 
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
@@ -61,6 +64,7 @@ export default function RegisterBaby() {
         body: JSON.stringify({
           name: form.name,
           birth_date: form.birth_date,
+          gender: form.gender,
         }),
       });
 
@@ -133,6 +137,23 @@ export default function RegisterBaby() {
                   required
                 />
               </div>
+
+              <div className="flex flex-col gap-1">
+                <label htmlFor="gender" className="text-sm font-medium text-gray-700">Gênero</label>
+                <select
+                  id="gender"
+                  name="gender"
+                  value={form.gender}
+                  onChange={handleChange}
+                  required
+                  className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="" disabled>Selecione o gênero</option>
+                  <option value="male">Masculino</option>
+                  <option value="female">Feminino</option>
+                </select>
+              </div>
+
 
               <button
                 type="submit"
