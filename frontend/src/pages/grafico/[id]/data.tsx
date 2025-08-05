@@ -16,6 +16,8 @@ import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
 import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
 import { FiArrowLeft } from "react-icons/fi";
+import { format, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 interface DataPoint {
   date: string;
@@ -98,8 +100,9 @@ function getGenderLabel(gender: Gender | null): string {
   return gender === "male" ? "Masculino" : "Feminino";
 }
 
-function formatDateToBR(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("pt-BR");
+function formatDateToBR(dateString: string): string {
+  const date = parseISO(dateString);
+  return format(date, 'dd/MM/yyyy', { locale: ptBR });
 }
 
 export default function GraficoPeso() {

@@ -8,6 +8,8 @@ import { ScrollUp } from "@/components/scrollup/ScrollUp";
 import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
 import { FiArrowLeft, FiTrash2, FiPlus } from "react-icons/fi";
 import Link from "next/link";
+import { format, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 interface RegistryItem {
   id: number;
@@ -86,7 +88,8 @@ export default function RegistryTable() {
   };
 
   function formatDateToBR(dateString: string): string {
-    return new Date(dateString).toLocaleDateString("pt-BR");
+    const date = parseISO(dateString);
+    return format(date, 'dd/MM/yyyy', { locale: ptBR });
   }
 
   function getGenderLabel(gender: string): string {

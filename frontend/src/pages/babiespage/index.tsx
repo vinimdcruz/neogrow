@@ -8,6 +8,9 @@ import { FiEdit, FiArrowLeft } from "react-icons/fi";
 import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { format, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+
 
 interface babyProps {
   id: number;
@@ -55,7 +58,7 @@ export default function BabyList() {
               }
 
               return {
-                ...baby, // 👈 garante que o gender e os demais campos sejam mantidos
+                ...baby, 
                 weight: latest.weight,
                 height: latest.height,
                 head_circumference: latest.head_circumference,
@@ -88,8 +91,8 @@ export default function BabyList() {
   };
 
   function formatDateToBR(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("pt-BR");
+    const date = parseISO(dateString);
+    return format(date, 'dd/MM/yyyy', { locale: ptBR });
   }
 
   function getGenderLabel(gender: string) {
