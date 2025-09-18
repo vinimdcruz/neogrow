@@ -17,6 +17,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Usar configuração específica para Docker
+RUN cp next.config.docker.ts next.config.ts
+
 # Next.js coleta dados de telemetria completamente anônimos sobre o uso geral.
 # Saiba mais aqui: https://nextjs.org/telemetry
 # Descomente a linha seguinte caso você queira desabilitar a telemetria durante o build.
@@ -30,7 +33,7 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
-# Descommente a linha seguinte caso você queira desabilitar a telemetria durante o runtime.
+# Descomente a linha seguinte caso você queira desabilitar a telemetria durante o runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 nodejs

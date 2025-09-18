@@ -4,12 +4,13 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   
-  // Configurações para produção e Docker
-  output: 'standalone', // Para Docker otimizado
+  // Para Vercel, não usar 'standalone' - deixar padrão
+  // output: 'standalone', // Só para Docker
   
   // Configurações de imagem
   images: {
-    unoptimized: true, // Para deployment estático se necessário
+    domains: [], // Adicione domínios de imagens se necessário
+    unoptimized: false, // Para Vercel, deixar otimizado
   },
   
   // Configurações de ambiente
