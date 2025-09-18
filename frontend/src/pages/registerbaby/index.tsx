@@ -2,7 +2,7 @@
 
 import { Header } from "@/components/header/Header";
 import { Container } from "@/components/container/Container";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { TermsOfUseNotice } from "@/components/termsofnotice/TermsOfUseNotice";
@@ -15,10 +15,7 @@ interface BabyFormProps {
 }
 
 export default function RegisterBaby() {
-  const params = useParams();
   const router = useRouter();
-
-  const id = params.id;
 
   const [form, setForm] = useState<BabyFormProps>({
     name: "",
