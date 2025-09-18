@@ -46,3 +46,8 @@ Para instruções específicas de desenvolvimento, consulte os READMEs de cada p
 
 - [Documentação do Backend](./backend/README.md)
 - [Documentação do Frontend](./frontend/README.md)
+
+## 🚀 Deploy em Produção
+
+- [Guia de Deploy Completo](./DEPLOYMENT.md) - Opções de hospedagem (Vercel gratuito, AWS S3, EC2)
+- [Configuração AWS](./AWS_SETUP.md) - Instruções detalhadas para AWS

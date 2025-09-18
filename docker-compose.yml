@@ -38,14 +38,18 @@ services:
       - ./backend:/app
     command: /app/entrypoint.sh
 
-  # Next.js frontend service (commented out for now)
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   ports:
-  #     - "3000:3000"  # Exposes Next.js app on port 3000
-  #   environment:
-  #     - NODE_ENV=development  # or 'production' for a production environment
+  # Next.js frontend service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Exposes Next.js app on port 3000
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - api
 
 # Volumes for persistent data storage
 volumes:
