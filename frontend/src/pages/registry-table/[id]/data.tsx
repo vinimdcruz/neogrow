@@ -27,7 +27,8 @@ interface BabyInfo {
 
 export default function RegistryTable() {
   const router = useRouter();
-  const { id } = useParams();
+  const params = useParams() as { id?: string } | null;
+  const id = params?.id;
 
   const [items, setItems] = useState<RegistryItem[]>([]);
   const [baby, setBaby] = useState<BabyInfo | null>(null);
