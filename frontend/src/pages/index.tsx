@@ -1,5 +1,3 @@
-"use client"
-
 import { Header } from "@/components/header/Header"
 import  Link  from "next/link"
 import { Container } from "@/components/container/Container"
