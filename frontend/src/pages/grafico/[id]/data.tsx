@@ -124,10 +124,10 @@ export default function GraficoPeso() {
         if (!token) return;
 
         const [dataRes, babyRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/${id}/data/`, {
+          fetch(`/api/babies/${id}/data/`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/babies/${id}/`, {
+          fetch(`/api/babies/${id}/`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
