@@ -12,9 +12,14 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   
-  // Configurações de ambiente
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  // Proxy reverso para redirecionar /api/* para o backend
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${process.env.API_URL || 'http://localhost:8000'}/api/:path*`,
+      },
+    ];
   },
 };
 

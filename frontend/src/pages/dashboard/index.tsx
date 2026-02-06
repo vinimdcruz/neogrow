@@ -83,7 +83,7 @@ export default function Dashboard() {
 
       try {
         const resBabies = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/babies/`,
+          `/api/babies/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -107,7 +107,7 @@ export default function Dashboard() {
         const babiesWithData = await Promise.all(
           babies.map(async (baby: any) => {
             const resData = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/api/babies/${baby.id}/data/`,
+              `/api/babies/${baby.id}/data/`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,

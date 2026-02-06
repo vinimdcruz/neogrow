@@ -61,7 +61,7 @@ ssh -i "$PEM_KEY" ubuntu@$EC2_IP << 'EOF'
   tar -xzf /tmp/neogrow.tar.gz
   
   # Configurar variáveis de ambiente
-  echo "NEXT_PUBLIC_API_URL=http://$IP:8000" > frontend/.env.production.local
+  echo "API_URL=http://$IP:8000" > frontend/.env.production.local
   
   # Parar containers existentes
   docker-compose down 2>/dev/null || true
