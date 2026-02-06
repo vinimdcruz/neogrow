@@ -22,9 +22,6 @@ typing_extensions==4.12.2
 uvicorn==0.34.0
 alembic==1.13.1
 python-jose[cryptography]==3.3.0
-
-# ATUALIZADOS:
-passlib[bcrypt]==1.7.7
-bcrypt==4.0.1
-
+passlib[bcrypt]==1.7.4
+bcrypt<4.0.0
 python-multipart==0.0.9
