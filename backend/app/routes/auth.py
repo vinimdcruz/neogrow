@@ -7,7 +7,7 @@ from ..auth import jwt, hashing
 
 router = APIRouter()
 
-@router.post("/register", response_model=schemas.User)
+@router.post("/register/", response_model=schemas.User)
 def register(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
@@ -17,7 +17,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
         )
     return crud.create_user(db=db, user=user)
 
-@router.post("/login")
+@router.post("/login/")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
     user = crud.get_user_by_email(db, email=form_data.username)
     if not user or not hashing.verify_password(form_data.password, user.hashed_password):

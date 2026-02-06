@@ -74,7 +74,7 @@ export default function RegistryTable() {
     if (!confirm("Tem certeza que deseja excluir este item?")) return;
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`/api/babies/${id}/data/${itemId}`, {
+      const response = await fetch(`/api/babies/${id}/data/${itemId}/`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

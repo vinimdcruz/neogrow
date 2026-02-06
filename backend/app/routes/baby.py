@@ -15,7 +15,7 @@ def create_baby(
 ):
     return crud.create_baby(db=db, baby=baby, user_id=current_user.id)
 
-@router.get("/babies/{baby_id}", response_model=schemas.Baby)
+@router.get("/babies/{baby_id}/", response_model=schemas.Baby)
 def read_baby(
     baby_id: int,
     db: Session = Depends(get_db),

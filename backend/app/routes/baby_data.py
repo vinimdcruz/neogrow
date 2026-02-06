@@ -44,7 +44,7 @@ async def read_baby_data(
         return crud.get_baby_data_by_date_range(db, baby_id, start_date, end_date)
     return crud.get_baby_data(db, baby_id)
 
-@router.delete("/babies/{baby_id}/data/{data_id}")
+@router.delete("/babies/{baby_id}/data/{data_id}/")
 async def delete_baby_data(
     baby_id: int,
     data_id: int,
