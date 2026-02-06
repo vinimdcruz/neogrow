@@ -7,7 +7,7 @@ from ..auth.oauth2 import get_current_user
 
 router = APIRouter()
 
-@router.post("/babies/", response_model=schemas.Baby)
+@router.post("/babies", response_model=schemas.Baby)
 def create_baby(
     baby: schemas.BabyCreate,
     db: Session = Depends(get_db),
@@ -15,7 +15,7 @@ def create_baby(
 ):
     return crud.create_baby(db=db, baby=baby, user_id=current_user.id)
 
-@router.get("/babies/{baby_id}/", response_model=schemas.Baby)
+@router.get("/babies/{baby_id}", response_model=schemas.Baby)
 def read_baby(
     baby_id: int,
     db: Session = Depends(get_db),
@@ -28,7 +28,7 @@ def read_baby(
         raise HTTPException(status_code=403, detail="Not authorized to access this baby's data")
     return db_baby
 
-@router.get("/babies/", response_model=List[schemas.Baby])
+@router.get("/babies", response_model=List[schemas.Baby])
 def read_user_babies(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)

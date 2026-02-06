@@ -52,7 +52,7 @@ export default function RegisterBaby() {
         return;
       }
 
-      const res = await fetch("/api/babies/", {
+      const res = await fetch("/api/babies", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

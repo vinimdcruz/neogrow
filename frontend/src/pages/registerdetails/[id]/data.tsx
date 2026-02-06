@@ -91,7 +91,7 @@ export default function RegisterDetails() {
     }
 
     try {
-      const res = await fetch(`/api/babies/${id}/data/`, {
+      const res = await fetch(`/api/babies/${id}/data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -42,7 +42,7 @@ export default function RegistryTable() {
   const fetchBabyInfo = async () => {
     try {
       const token = localStorage.getItem("token");
-      const resp = await fetch(`/api/babies/${id}/`, {
+      const resp = await fetch(`/api/babies/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (resp.ok) {
@@ -57,7 +57,7 @@ export default function RegistryTable() {
   const fetchItems = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`/api/babies/${id}/data/`, {
+      const response = await fetch(`/api/babies/${id}/data`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.ok) {
@@ -74,7 +74,7 @@ export default function RegistryTable() {
     if (!confirm("Tem certeza que deseja excluir este item?")) return;
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`/api/babies/${id}/data/${itemId}/`, {
+      const response = await fetch(`/api/babies/${id}/data/${itemId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

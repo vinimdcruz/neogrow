@@ -31,7 +31,7 @@ export default function BabyList() {
     async function fetchBabiesWithData() {
       try {
         const token = localStorage.getItem("token");
-        const resBabies = await fetch("/api/babies/", {
+        const resBabies = await fetch("/api/babies", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -40,7 +40,7 @@ export default function BabyList() {
 
         const babiesWithDetails = await Promise.all(
           babiesData.map(async (baby: babyProps) => {
-            const resDetails = await fetch(`/api/babies/${baby.id}/data/`, {
+            const resDetails = await fetch(`/api/babies/${baby.id}/data`, {
               headers: { Authorization: `Bearer ${token}` },
             });
 

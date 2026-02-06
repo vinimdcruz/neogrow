@@ -83,7 +83,7 @@ export default function Dashboard() {
 
       try {
         const resBabies = await fetch(
-          `/api/babies/`,
+          `/api/babies`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -107,7 +107,7 @@ export default function Dashboard() {
         const babiesWithData = await Promise.all(
           babies.map(async (baby: any) => {
             const resData = await fetch(
-              `/api/babies/${baby.id}/data/`,
+              `/api/babies/${baby.id}/data`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,

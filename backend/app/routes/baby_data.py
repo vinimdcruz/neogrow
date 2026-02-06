@@ -20,7 +20,7 @@ async def verify_baby_ownership(
         raise HTTPException(status_code=403, detail="Not authorized to access this baby's data")
     return baby
 
-@router.post("/babies/{baby_id}/data/", response_model=schemas.BabyData)
+@router.post("/babies/{baby_id}/data", response_model=schemas.BabyData)
 async def create_baby_data(
     baby_id: int,
     baby_data: schemas.BabyDataCreate,
@@ -30,7 +30,7 @@ async def create_baby_data(
     await verify_baby_ownership(baby_id, current_user, db)
     return crud.create_baby_data(db=db, baby_data=baby_data, baby_id=baby_id)
 
-@router.get("/babies/{baby_id}/data/", response_model=List[schemas.BabyData])
+@router.get("/babies/{baby_id}/data", response_model=List[schemas.BabyData])
 async def read_baby_data(
     baby_id: int,
     start_date: date = None,
@@ -44,7 +44,7 @@ async def read_baby_data(
         return crud.get_baby_data_by_date_range(db, baby_id, start_date, end_date)
     return crud.get_baby_data(db, baby_id)
 
-@router.delete("/babies/{baby_id}/data/{data_id}/")
+@router.delete("/babies/{baby_id}/data/{data_id}")
 async def delete_baby_data(
     baby_id: int,
     data_id: int,
