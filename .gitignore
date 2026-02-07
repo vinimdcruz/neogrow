@@ -172,3 +172,4 @@ cython_debug/
 
 # Database files, as sqlite .db
 *.db
+*.DS_Store
