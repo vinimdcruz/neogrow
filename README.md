@@ -34,6 +34,10 @@ Este monorepo contém:
    - Backend API: http://localhost:8000
    - Documentação da API: http://localhost:8000/docs
 
+### Variáveis de ambiente
+
+O `docker compose` já injeta valores de desenvolvimento para o backend. Para rodar o backend fora do Compose (ou em produção), copie `backend/.env.example` para `backend/.env` e preencha os valores. A variável `JWT_SECRET_KEY` é obrigatória: a API não sobe sem ela. Detalhes em [DEPLOYMENT.md](./DEPLOYMENT.md).
+
 ### Parando a aplicação
 
 ```bash
