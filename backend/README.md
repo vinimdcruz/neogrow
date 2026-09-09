@@ -98,9 +98,11 @@ Crie um arquivo `.env` na pasta `backend`:
 
 ```env
 DATABASE_URL=postgresql://usuario:senha@localhost:5432/neogrow
-SECRET_KEY=sua_chave_secreta_aqui
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
+# Obrigatória: a API não inicia sem ela. Gere com:
+#   python -c "import secrets; print(secrets.token_urlsafe(32))"
+JWT_SECRET_KEY=troque-por-um-valor-gerado
+# Origens permitidas para CORS, separadas por vírgula
+CORS_ALLOWED_ORIGINS=http://localhost:3000
 ```
 
 #### 4. Execute as Migrações
@@ -194,16 +196,15 @@ docker compose logs -f backend
 
 ### Variáveis de Ambiente
 
-Todas as configurações podem ser definidas via variáveis de ambiente:
-
 - `DATABASE_URL` - URL de conexão com o banco
-- `SECRET_KEY` - Chave secreta para JWT  
-- `ALGORITHM` - Algoritmo para JWT (padrão: HS256)
-- `ACCESS_TOKEN_EXPIRE_MINUTES` - Tempo de expiração do token
+- `JWT_SECRET_KEY` - Chave secreta para assinatura dos tokens JWT. Obrigatória: a aplicação não inicia sem ela (não há default). Gere com `python -c "import secrets; print(secrets.token_urlsafe(32))"`.
+- `CORS_ALLOWED_ORIGINS` - Lista de origens permitidas para CORS, separada por vírgula (default de desenvolvimento: `http://localhost:3000`).
+
+`ALGORITHM` (HS256) e `ACCESS_TOKEN_EXPIRE_MINUTES` (30) são constantes definidas em `app/auth/jwt.py`.
 
 ### CORS
 
-As configurações de CORS estão definidas em `app/main.py`. Em produção, substitua `allow_origins=["*"]` pelos domínios específicos.
+As configurações de CORS estão definidas em `app/main.py`. As origens permitidas são lidas de `CORS_ALLOWED_ORIGINS` (lista separada por vírgula). Em produção, defina explicitamente os domínios do frontend; o default cobre apenas o desenvolvimento local.
 
 ## 🚀 Deploy
 

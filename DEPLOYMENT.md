@@ -2,6 +2,18 @@
 
 Este guia apresenta as opções de deployment para o frontend Next.js do NeoGrow, priorizando custo-benefício.
 
+## 🔐 Variáveis de Ambiente do Backend (Obrigatórias)
+
+O backend faz deploy automático via `.github/workflows/deploy.yml` para EC2 e roda com `docker run --env-file backend/.env`. O arquivo `backend/.env` não é versionado e precisa existir no host EC2 antes do deploy. Use `backend/.env.example` como base.
+
+| Variável | Obrigatória | Descrição |
+|----------|-------------|-----------|
+| `JWT_SECRET_KEY` | Sim | Segredo de assinatura dos tokens JWT. A aplicação falha no boot se não estiver definida (não há default). Gere com `python -c "import secrets; print(secrets.token_urlsafe(32))"`. |
+| `CORS_ALLOWED_ORIGINS` | Sim (produção) | Origens permitidas para requisições CORS, separadas por vírgula (ex.: `https://app.exemplo.com`). O default cobre apenas `http://localhost:3000`. |
+| `DATABASE_URL` | Sim | URL de conexão do PostgreSQL. |
+
+Sem `JWT_SECRET_KEY` o container não sobe; sem `CORS_ALLOWED_ORIGINS` correto o frontend é bloqueado pelo CORS.
+
 ## 📊 Comparação de Opções
 
 | Opção | Custo Mensal | Pros | Contras |
